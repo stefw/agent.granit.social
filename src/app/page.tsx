@@ -1,9 +1,7 @@
 import { getAllPosts } from '@/lib/posts'
 import Link from 'next/link'
-import Image from 'next/image'
 import { format } from 'date-fns'
 import { fr } from 'date-fns/locale'
-import NewsletterForm from '@/components/NewsletterForm'
 import Header from '@/components/Header'
 import { siteConfig, normalizeUrl } from '@/config/site'
 

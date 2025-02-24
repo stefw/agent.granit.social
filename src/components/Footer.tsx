@@ -24,7 +24,7 @@ export default function Footer() {
           <div className="md:col-span-3">
             <h3 className="font-mono text-xs uppercase text-gray-500 mb-4">Manifesto</h3>
             <p className="text-xs text-gray-600">
-              Agentic Or Not explore les initiatives et l'autonomie dans un monde transformé par l'intelligence artificielle. À travers des articles, des analyses et des réflexions, nous examinons comment préserver notre capacité d'action et notre indépendance.
+              Agentic Or Not explore les initiatives et l&apos;autonomie dans un monde transformé par l&apos;intelligence artificielle. À travers des articles, des analyses et des réflexions, nous examinons comment préserver notre capacité d&apos;action et notre indépendance.
             </p>
           </div>
         </div>

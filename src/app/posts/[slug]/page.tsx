@@ -1,11 +1,8 @@
 import { getPostBySlug } from '@/lib/posts'
 import { format } from 'date-fns'
 import { fr } from 'date-fns/locale'
-import Image from 'next/image'
-import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import PostContent from '@/components/PostContent'
-import NewsletterForm from '@/components/NewsletterForm'
 import Header from '@/components/Header'
 
 interface PageParams {
