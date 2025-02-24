@@ -2,13 +2,18 @@ import { NextRequest } from 'next/server'
 import { join } from 'path'
 import { createReadStream, statSync } from 'fs'
 
+type Context = {
+  params: { path: string[] }
+  searchParams: { [key: string]: string | string[] | undefined }
+}
+
 export async function GET(
   request: NextRequest,
-  { params }: { params: { path: string[] } }
+  context: Context
 ) {
   try {
     // Encoder les noms de fichiers pour gérer les espaces
-    const safePath = params.path.map(segment => encodeURIComponent(segment))
+    const safePath = context.params.path.map(segment => encodeURIComponent(segment))
     const filePath = join(process.cwd(), 'content', ...safePath)
     
     // Vérifier que le fichier existe et est dans le dossier content
@@ -17,7 +22,7 @@ export async function GET(
     }
 
     // Décoder le chemin pour la lecture du fichier
-    const decodedPath = join(process.cwd(), 'content', ...params.path)
+    const decodedPath = join(process.cwd(), 'content', ...context.params.path)
     const stat = statSync(decodedPath)
     const fileSize = stat.size
     const range = request.headers.get('range')
