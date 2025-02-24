@@ -4,14 +4,16 @@ date: 2025-02-26
 excerpt: Tout ce qu'il faut savoir sur la course la plus prestigieuse du calendrier F1
 cover: /images/monaco.jpg
 ---
+
+
+![[Recording 20250224201031.m4a]]
+
+
 Ce soir c’est crêpes à la maison.  
 J’ai besoin de **lait** et d’**oeufs bio**, Carrefour bien entendu.
 Je lâche mon **agent** sur le eCommerce de [carrefour.Fr](https://carrefour.fr)
 
 Il est contrôlé un minimum - je ne veux pas qu’il fasse de bêtises - par un système d’instructions savamment (!) pensé par mes soins.
-
-
-![[Recording 20250224194000.m4a]]
 
 
 ```
@@ -32,3 +34,4 @@ async def run_carrefour():
 
 
 
+![[agent_history.gif]]

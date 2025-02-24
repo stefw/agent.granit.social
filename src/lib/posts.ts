@@ -58,8 +58,13 @@ const md = new MarkdownIt({
     
     if (!silent) {
       const fileName = match[1];
+      // Récupérer le topic du post actuel depuis l'environnement
+      const topic = state.env.topic || '';
+      // Construire le chemin avec les segments encodés individuellement
+      const segments = [topic, 'medias', fileName].filter(Boolean);
+      const mediaPath = segments.join('/');
       const token = state.push('html_inline', '', 0);
-      token.content = `<div data-audio-file="${fileName}"></div>`;
+      token.content = `<div data-audio-file="${mediaPath}"></div>`;
       state.pos += match[0].length;
     }
     
@@ -117,13 +122,15 @@ export async function getAllPosts(): Promise<Post[]> {
     const fileContents = await fs.promises.readFile(fullPath, 'utf8')
     const { data, content } = matter(fileContents)
 
+    // Passer le topic dans l'environnement du markdown
+    const env = { topic }
     return {
       slug: slug,
       title: data.title,
       date: data.date,
       excerpt: data.excerpt,
       cover: data.cover,
-      content: md.render(content),
+      content: md.render(content, env),
       topic
     }
   }))

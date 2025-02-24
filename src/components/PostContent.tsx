@@ -77,17 +77,17 @@ export default function PostContent({ content }: PostContentProps) {
     // Remplacer les div audio par le composant AudioPlayer
     const audioElements = document.querySelectorAll('[data-audio-file]')
     audioElements.forEach((element) => {
-      const fileName = element.getAttribute('data-audio-file')
-      if (fileName) {
+      const mediaPath = element.getAttribute('data-audio-file')
+      if (mediaPath) {
         const audioComponent = document.createElement('div')
         audioComponent.className = 'my-4'
         const audio = document.createElement('audio')
         audio.controls = true
         audio.className = 'w-full'
         audio.preload = 'metadata'
-        audio.crossOrigin = 'anonymous'
         const source = document.createElement('source')
-        source.src = `/content/${encodeURIComponent(fileName)}`
+        // Construire l'URL avec le chemin complet incluant 'posts'
+        source.src = `/api/content/posts/${mediaPath}`
         source.type = 'audio/mp4'
         audio.appendChild(source)
         
