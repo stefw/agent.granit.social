@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react'
 import mermaid from 'mermaid'
+import AudioPlayer from './AudioPlayer'
 
 mermaid.initialize({
   startOnLoad: true,
@@ -71,6 +72,33 @@ export default function PostContent({ content }: PostContentProps) {
         root.appendChild(iframe)
         youtubeComponent.appendChild(root)
         element.parentNode?.replaceChild(youtubeComponent, element)
+      }
+    })
+
+    // Remplacer les div audio par le composant AudioPlayer
+    const audioElements = document.querySelectorAll('[data-audio-file]')
+    audioElements.forEach((element) => {
+      const fileName = element.getAttribute('data-audio-file')
+      if (fileName) {
+        const audioComponent = document.createElement('div')
+        audioComponent.className = 'my-4'
+        const audio = document.createElement('audio')
+        audio.controls = true
+        audio.className = 'w-full'
+        audio.preload = 'metadata'
+        audio.crossOrigin = 'anonymous'
+        const source = document.createElement('source')
+        source.src = `/content/${fileName}`
+        source.type = 'audio/mp4'
+        audio.appendChild(source)
+        
+        // Ajouter un message de fallback
+        const fallback = document.createElement('p')
+        fallback.textContent = 'Votre navigateur ne supporte pas la lecture audio.'
+        audio.appendChild(fallback)
+        
+        audioComponent.appendChild(audio)
+        element.parentNode?.replaceChild(audioComponent, element)
       }
     })
   }, [content])

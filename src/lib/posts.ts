@@ -49,6 +49,23 @@ const md = new MarkdownIt({
     return self.renderToken(tokens, idx, options);
   };
 
+  // Regex pour détecter les liens Obsidian vers les fichiers audio
+  const audioRegex = /!\[\[(.*?\.m4a)\]\]/;
+
+  md.inline.ruler.before('link', 'obsidian_audio', function(state, silent) {
+    const match = state.src.slice(state.pos).match(audioRegex);
+    if (!match) return false;
+    
+    if (!silent) {
+      const fileName = match[1];
+      const token = state.push('html_inline', '', 0);
+      token.content = `<div data-audio-file="${fileName}"></div>`;
+      state.pos += match[0].length;
+    }
+    
+    return true;
+  });
+
   md.renderer.rules.link_open = function (tokens, idx, options, env, self) {
     const href = tokens[idx].attrGet('href');
     
