@@ -2,7 +2,6 @@
 
 import { useEffect } from 'react'
 import mermaid from 'mermaid'
-import YouTubeEmbed from './YouTubeEmbed'
 
 mermaid.initialize({
   startOnLoad: true,
