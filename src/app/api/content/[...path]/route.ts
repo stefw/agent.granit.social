@@ -2,12 +2,18 @@ import { NextRequest } from 'next/server'
 import { join } from 'path'
 import { createReadStream, statSync } from 'fs'
 
+interface RouteContext {
+  params: {
+    path: string[]
+  }
+}
+
 export async function GET(
   request: NextRequest,
-  { params }: { params: { path: string[] } }
+  context: RouteContext
 ) {
   try {
-    const filePath = join(process.cwd(), 'content', ...params.path)
+    const filePath = join(process.cwd(), 'content', ...context.params.path)
     
     // Vérifier que le fichier existe et est dans le dossier content
     if (!filePath.startsWith(join(process.cwd(), 'content'))) {
