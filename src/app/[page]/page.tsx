@@ -2,7 +2,11 @@ import { getPageBySlug } from '@/lib/posts'
 import { notFound } from 'next/navigation'
 import Header from '@/components/Header'
 
-export default async function StaticPage({ params }: { params: { page: string } }) {
+interface PageParams {
+  params: { page: string }
+}
+
+export default async function StaticPage({ params }: PageParams) {
   const page = await getPageBySlug(params.page)
 
   if (!page) {
