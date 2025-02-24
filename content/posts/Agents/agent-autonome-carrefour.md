@@ -11,6 +11,9 @@ Je lâche mon **agent** sur le eCommerce de [carrefour.Fr](https://carrefour.f
 Il est contrôlé un minimum - je ne veux pas qu’il fasse de bêtises - par un système d’instructions savamment (!) pensé par mes soins.
 
 
+![[Recording 20250224194000.m4a]]
+
+
 ```
 async def run_carrefour():
 	agent = Agent(
@@ -29,4 +32,3 @@ async def run_carrefour():
 
 
 
-![[Recording 20250224194000.m4a]]

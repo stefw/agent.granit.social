@@ -87,7 +87,7 @@ export default function PostContent({ content }: PostContentProps) {
         audio.preload = 'metadata'
         audio.crossOrigin = 'anonymous'
         const source = document.createElement('source')
-        source.src = `/content/${fileName}`
+        source.src = `/content/${encodeURIComponent(fileName)}`
         source.type = 'audio/mp4'
         audio.appendChild(source)
         

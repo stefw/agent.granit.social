@@ -2,25 +2,23 @@ import { NextRequest } from 'next/server'
 import { join } from 'path'
 import { createReadStream, statSync } from 'fs'
 
-interface RouteContext {
-  params: {
-    path: string[]
-  }
-}
-
 export async function GET(
   request: NextRequest,
-  context: RouteContext
+  { params }: { params: { path: string[] } }
 ) {
   try {
-    const filePath = join(process.cwd(), 'content', ...context.params.path)
+    // Encoder les noms de fichiers pour gérer les espaces
+    const safePath = params.path.map(segment => encodeURIComponent(segment))
+    const filePath = join(process.cwd(), 'content', ...safePath)
     
     // Vérifier que le fichier existe et est dans le dossier content
     if (!filePath.startsWith(join(process.cwd(), 'content'))) {
       return new Response('Accès non autorisé', { status: 403 })
     }
 
-    const stat = statSync(filePath)
+    // Décoder le chemin pour la lecture du fichier
+    const decodedPath = join(process.cwd(), 'content', ...params.path)
+    const stat = statSync(decodedPath)
     const fileSize = stat.size
     const range = request.headers.get('range')
 
@@ -29,7 +27,7 @@ export async function GET(
       const start = parseInt(parts[0], 10)
       const end = parts[1] ? parseInt(parts[1], 10) : fileSize - 1
       const chunksize = (end - start) + 1
-      const stream = createReadStream(filePath, { start, end })
+      const stream = createReadStream(decodedPath, { start, end })
 
       const headers = new Headers({
         'Content-Range': `bytes ${start}-${end}/${fileSize}`,
@@ -43,7 +41,7 @@ export async function GET(
         headers,
       })
     } else {
-      const stream = createReadStream(filePath)
+      const stream = createReadStream(decodedPath)
       const headers = new Headers({
         'Content-Length': fileSize.toString(),
         'Content-Type': 'audio/mp4',
