@@ -28,4 +28,5 @@ async def run_carrefour():
 [look](https://www.youtube.com/watch?v=TvqlGgS0aJw)
 
 
-![[Recording 20250224192956.m4a]]
+
+![[Recording 20250224194000.m4a]]

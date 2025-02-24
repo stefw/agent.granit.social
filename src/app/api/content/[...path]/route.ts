@@ -25,12 +25,12 @@ export async function GET(
       const chunksize = (end - start) + 1
       const stream = createReadStream(filePath, { start, end })
 
-      const headers = {
+      const headers = new Headers({
         'Content-Range': `bytes ${start}-${end}/${fileSize}`,
         'Accept-Ranges': 'bytes',
         'Content-Length': chunksize.toString(),
         'Content-Type': 'audio/mp4',
-      }
+      })
 
       return new Response(stream as unknown as ReadableStream, {
         status: 206,
@@ -38,11 +38,11 @@ export async function GET(
       })
     } else {
       const stream = createReadStream(filePath)
-      const headers = {
+      const headers = new Headers({
         'Content-Length': fileSize.toString(),
         'Content-Type': 'audio/mp4',
         'Accept-Ranges': 'bytes',
-      }
+      })
 
       return new Response(stream as unknown as ReadableStream, {
         status: 200,
