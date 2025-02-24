@@ -1,28 +1,24 @@
-import { NextRequest } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import { join } from 'path'
 import { createReadStream, statSync } from 'fs'
 
-type Context = {
-  params: { path: string[] }
-  searchParams: { [key: string]: string | string[] | undefined }
-}
-
 export async function GET(
   request: NextRequest,
-  context: Context
-) {
+  { params }: { params: Promise<{ path: string[] }> }
+): Promise<NextResponse> {
   try {
+    const { path } = await params
     // Encoder les noms de fichiers pour gérer les espaces
-    const safePath = context.params.path.map(segment => encodeURIComponent(segment))
+    const safePath = path.map(segment => encodeURIComponent(segment))
     const filePath = join(process.cwd(), 'content', ...safePath)
     
     // Vérifier que le fichier existe et est dans le dossier content
     if (!filePath.startsWith(join(process.cwd(), 'content'))) {
-      return new Response('Accès non autorisé', { status: 403 })
+      return NextResponse.json({ error: 'Accès non autorisé' }, { status: 403 })
     }
 
     // Décoder le chemin pour la lecture du fichier
-    const decodedPath = join(process.cwd(), 'content', ...context.params.path)
+    const decodedPath = join(process.cwd(), 'content', ...path)
     const stat = statSync(decodedPath)
     const fileSize = stat.size
     const range = request.headers.get('range')
@@ -41,7 +37,7 @@ export async function GET(
         'Content-Type': 'audio/mp4',
       })
 
-      return new Response(stream as unknown as ReadableStream, {
+      return new NextResponse(stream as unknown as ReadableStream, {
         status: 206,
         headers,
       })
@@ -53,13 +49,13 @@ export async function GET(
         'Accept-Ranges': 'bytes',
       })
 
-      return new Response(stream as unknown as ReadableStream, {
+      return new NextResponse(stream as unknown as ReadableStream, {
         status: 200,
         headers,
       })
     }
   } catch (error) {
     console.error('Erreur lors de la lecture du fichier:', error)
-    return new Response('Fichier non trouvé', { status: 404 })
+    return NextResponse.json({ error: 'Fichier non trouvé' }, { status: 404 })
   }
 } 
