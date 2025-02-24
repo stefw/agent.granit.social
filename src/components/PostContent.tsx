@@ -2,7 +2,6 @@
 
 import { useEffect } from 'react'
 import mermaid from 'mermaid'
-import AudioPlayer from './AudioPlayer'
 
 mermaid.initialize({
   startOnLoad: true,

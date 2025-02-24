@@ -1,7 +1,6 @@
 import { NextRequest } from 'next/server'
 import { join } from 'path'
 import { createReadStream, statSync } from 'fs'
-import { ReadStream } from 'fs'
 
 export async function GET(
   request: NextRequest,
