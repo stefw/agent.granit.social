@@ -45,13 +45,12 @@ const md = new MarkdownIt({
   }
 }).use((md) => {
   // Règle personnalisée pour les liens YouTube
-  const defaultRender = md.renderer.rules.link_open || function(tokens, idx, _options, _env, self) {
-    return self.renderToken(tokens, idx, _options);
+  const defaultRender = md.renderer.rules.link_open || function(tokens, idx, options, env, self) {
+    return self.renderToken(tokens, idx, options);
   };
 
-  md.renderer.rules.link_open = function (tokens, idx, _options, _env, _self) {
-    const token = tokens[idx];
-    const href = token.attrGet('href');
+  md.renderer.rules.link_open = function (tokens, idx, options, env, self) {
+    const href = tokens[idx].attrGet('href');
     
     if (href) {
       const match = href.match(youtubeRegex);
@@ -62,11 +61,10 @@ const md = new MarkdownIt({
       }
     }
 
-    return defaultRender(tokens, idx, _options, _env, _self);
+    return defaultRender(tokens, idx, options, env, self);
   };
 
-  md.renderer.rules.link_close = function(tokens, idx, _options, _env, _self) {
-    const token = tokens[idx];
+  md.renderer.rules.link_close = function(tokens, idx) {
     const openToken = tokens[idx - 2]; // Le token d'ouverture correspondant
     if (openToken && openToken.attrGet('href')?.match(youtubeRegex)) {
       return '</div>';
