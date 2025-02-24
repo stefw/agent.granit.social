@@ -3,13 +3,14 @@ import { notFound } from 'next/navigation'
 import Header from '@/components/Header'
 
 interface PageParams {
-  params: { page: string }
+  params: Promise<{ page: string }>
 }
 
 export default async function StaticPage({ params }: PageParams) {
-  const page = await getPageBySlug(params.page)
+  const { page } = await params
+  const pageContent = await getPageBySlug(page)
 
-  if (!page) {
+  if (!pageContent) {
     notFound()
   }
 
@@ -31,8 +32,8 @@ export default async function StaticPage({ params }: PageParams) {
           prose-p:text-xs prose-p:leading-relaxed prose-p:text-gray-600 dark:prose-p:text-gray-300
           prose-a:text-red-600 prose-a:no-underline hover:prose-a:text-red-700 dark:prose-a:text-red-400 dark:hover:prose-a:text-red-300"
         >
-          <h1>{page.title}</h1>
-          <div dangerouslySetInnerHTML={{ __html: page.content }} />
+          <h1>{pageContent.title}</h1>
+          <div dangerouslySetInnerHTML={{ __html: pageContent.content }} />
         </article>
       </div>
     </main>
