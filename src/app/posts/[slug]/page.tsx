@@ -1,12 +1,9 @@
 import { getPostBySlug, getAllPosts } from '@/lib/posts'
-import { format } from 'date-fns'
-import { fr } from 'date-fns/locale'
 import { notFound } from 'next/navigation'
 import PostContent from '@/components/PostContent'
 import Link from 'next/link'
 import ThemeToggle from '@/components/ThemeToggle'
 import { siteConfig, normalizeUrl } from '@/config/site'
-import Image from 'next/image'
 
 interface PageParams {
   params: Promise<{ slug: string }>
@@ -22,7 +19,6 @@ export default async function PostPage({ params }: PageParams) {
 
   // Récupérer tous les posts pour obtenir les topics
   const allPosts = await getAllPosts()
-  const topicUrl = post.topic ? `/topics/${normalizeUrl(post.topic)}` : null
 
   // Obtenir la liste unique de tous les topics disponibles
   const allTopics = [...new Set(allPosts.map(post => post.topic).filter(Boolean) as string[])]

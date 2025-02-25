@@ -1,11 +1,8 @@
 import { getAllPosts } from '@/lib/posts'
 import Link from 'next/link'
-import { format } from 'date-fns'
-import { fr } from 'date-fns/locale'
 import { notFound } from 'next/navigation'
 import { normalizeUrl, siteConfig } from '@/config/site'
 import ThemeToggle from '@/components/ThemeToggle'
-import Image from 'next/image'
 
 interface PageParams {
   params: {

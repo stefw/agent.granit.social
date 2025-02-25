@@ -11,7 +11,7 @@ interface PageParams {
 }
 
 export default async function StaticPage({ params }: PageParams) {
-  const { page } = params
+  const { page } = await params
   const pageContent = await getPageBySlug(page)
 
   if (!pageContent) {

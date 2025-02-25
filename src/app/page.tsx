@@ -1,10 +1,7 @@
 import { getAllPosts } from '@/lib/posts'
 import Link from 'next/link'
-import { format } from 'date-fns'
-import { fr } from 'date-fns/locale'
 import { siteConfig, normalizeUrl } from '@/config/site'
 import ThemeToggle from '@/components/ThemeToggle'
-import Image from 'next/image'
 
 export default async function Home() {
   const posts = await getAllPosts()
