@@ -5,9 +5,7 @@ import { normalizeUrl, siteConfig } from '@/config/site'
 import ThemeToggle from '@/components/ThemeToggle'
 
 interface PageParams {
-  params: {
-    topic: string
-  }
+  params: Promise<{ topic: string }>
 }
 
 export default async function TopicPage({ params }: PageParams) {
