@@ -109,13 +109,13 @@ export default function PostContent({ content }: PostContentProps) {
         prose-h1:text-4xl prose-h2:text-2xl prose-h3:text-xl
         prose-pre:font-mono prose-pre:bg-black dark:prose-pre:bg-gray-800 prose-pre:text-xs prose-pre:whitespace-pre-wrap 
         prose-code:font-mono prose-code:text-xs prose-code:text-white dark:prose-code:text-white prose-code:whitespace-pre-wrap
-        prose-p:text-lg font-serif font-medium prose-p:leading-relaxed prose-p:text-[#111408] dark:prose-p:text-gray-300
+        prose-p:text-[22px] font-medium prose-p:leading-relaxed prose-p:text-[#111408] dark:prose-p:text-white
         prose-strong:font-bold prose-strong:text-black dark:prose-strong:text-white
-        prose-a:text-[#0000CC] prose-a:no-underline hover:prose-a:text-red-700 dark:prose-a:text-red-400 dark:hover:prose-a:text-red-300
+        prose-a:text-[#0000CC] prose-a:no-underline hover:prose-a:text-[#0000CC]/80 dark:prose-a:text-[#6666FF] dark:hover:prose-a:text-[#6666FF]/80
         prose-table:border-collapse prose-table:w-full
         prose-thead:bg-gray-50 dark:prose-thead:bg-gray-800
-        prose-th:p-2 prose-th:text-left prose-th:font-mono prose-th:text-[0.5rem] prose-th:text-gray-600 dark:prose-th:text-gray-300 prose-th:uppercase
-        prose-td:p-2 prose-td:border-b prose-td:border-gray-200 dark:prose-td:border-gray-700 prose-td:text-xs prose-td:text-gray-600 dark:prose-td:text-gray-300"
+        prose-th:p-2 prose-th:text-left prose-th:font-mono prose-th:text-[0.5rem] prose-th:text-gray-600 dark:prose-th:text-white prose-th:uppercase
+        prose-td:p-2 prose-td:border-b prose-td:border-gray-200 dark:prose-td:border-gray-700 prose-td:text-xs prose-td:text-gray-600 dark:prose-td:text-white"
       dangerouslySetInnerHTML={{ __html: content }}
     />
   )

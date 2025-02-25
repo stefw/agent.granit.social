@@ -1,36 +1,109 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Agent.Granit.Social
 
-## Getting Started
+Un blog moderne sur les agents autonomes et l'intelligence artificielle, construit avec Next.js 15.
 
-First, run the development server:
+## À propos du projet
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+Agent.Granit.Social est un blog qui explore les initiatives et l'autonomie dans un monde transformé par l'intelligence artificielle. À travers des articles, des analyses et des réflexions, nous examinons comment préserver notre capacité d'action et notre indépendance.
+
+## Fonctionnalités
+
+- **Architecture moderne** : Construit avec Next.js 15 et l'App Router
+- **Contenu en Markdown** : Articles stockés en Markdown avec support pour les métadonnées via frontmatter
+- **Organisation par topics** : Contenu organisé par thématiques
+- **Support multimédia** : Intégration de fichiers audio, images et GIFs
+- **Compatibilité Obsidian** : Support pour les liens et médias au format Obsidian
+- **Design responsive** : Interface adaptée à tous les appareils
+- **Mode sombre/clair** : Thème adaptatif selon les préférences utilisateur
+
+## Structure du projet
+
+```
+agent.granit.social/
+├── content/               # Contenu du blog
+│   ├── pages/             # Pages statiques (About, etc.)
+│   ├── posts/             # Articles du blog
+│   │   ├── Topic1/        # Organisation par topic
+│   │   │   ├── medias/    # Fichiers médias pour ce topic
+│   │   │   └── post1.md   # Article au format Markdown
+├── public/                # Fichiers statiques
+├── src/                   # Code source
+│   ├── app/               # App Router de Next.js
+│   ├── components/        # Composants React
+│   ├── config/            # Configuration du site
+│   └── lib/               # Utilitaires et fonctions
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Gestion des médias
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Le blog supporte différents types de médias :
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Images** : Intégrées via Markdown standard ou syntaxe Obsidian
+- **Audio** : Fichiers audio intégrés via la syntaxe Obsidian `![[nom-du-fichier.m4a]]`
+- **GIFs** : Supportés comme les images
+- **YouTube** : Intégration automatique des liens YouTube
 
-## Learn More
+Les fichiers médias sont stockés dans un dossier `medias` à la racine de chaque topic.
 
-To learn more about Next.js, take a look at the following resources:
+## Démarrage
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Clonez le dépôt :
+```bash
+git clone https://github.com/stefw/agent.granit.social.git
+cd agent.granit.social
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+2. Installez les dépendances :
+```bash
+npm install
+# ou
+yarn install
+# ou
+pnpm install
+```
 
-## Deploy on Vercel
+3. Lancez le serveur de développement :
+```bash
+npm run dev
+# ou
+yarn dev
+# ou
+pnpm dev
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+4. Ouvrez [http://localhost:3000](http://localhost:3000) dans votre navigateur.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Ajout de contenu
+
+Pour ajouter un nouvel article :
+
+1. Créez un fichier Markdown dans le dossier `content/posts/[Topic]/`
+2. Ajoutez le frontmatter avec les métadonnées :
+```md
+---
+title: "Titre de l'article"
+date: 2025-02-26
+excerpt: "Courte description de l'article"
+cover: "/chemin/vers/image.jpg"  # Optionnel
+---
+
+Contenu de l'article...
+```
+
+3. Pour ajouter des médias, placez-les dans le dossier `content/posts/[Topic]/medias/`
+
+## Déploiement
+
+Le site peut être déployé sur Vercel ou tout autre hébergeur compatible avec Next.js.
+
+```bash
+npm run build
+# ou
+yarn build
+# ou
+pnpm build
+```
+
+## Licence
+
+Ce projet est sous licence MIT.

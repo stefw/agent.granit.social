@@ -8,15 +8,31 @@ export default function ThemeToggle() {
   return (
     <button
       onClick={toggleTheme}
-      className="relative inline-flex h-6 w-11 items-center rounded-full bg-gray-200 dark:bg-gray-700 transition-colors hover:bg-gray-300 dark:hover:bg-gray-600"
+      className="relative w-[28px] h-[15px] flex items-center justify-center"
       aria-label="Changer de thème"
     >
       <span className="sr-only">Changer de thème</span>
-      <span
-        className={`${
-          theme === 'dark' ? 'translate-x-6' : 'translate-x-1'
-        } inline-block h-4 w-4 transform rounded-full bg-white transition-transform`}
-      />
+      
+      {/* Cercles qui se chevauchent */}
+      <div className="relative w-[28px] h-[15px]">
+        {/* Cercle avec bordure */}
+        <div 
+          className={`absolute w-[15px] h-[15px] rounded-full border transition-all duration-300 ${
+            theme === 'dark' 
+              ? 'border-white left-0 z-10' 
+              : 'border-black right-0 z-10'
+          }`}
+        />
+        
+        {/* Cercle plein */}
+        <div 
+          className={`absolute w-[15px] h-[15px] rounded-full transition-all duration-300 ${
+            theme === 'dark' 
+              ? 'bg-white right-[1px]' 
+              : 'bg-black left-[1px]'
+          }`}
+        />
+      </div>
     </button>
   )
 }
