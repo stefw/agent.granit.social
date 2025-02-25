@@ -80,7 +80,7 @@ export default function PostContent({ content }: PostContentProps) {
       const mediaPath = element.getAttribute('data-audio-file')
       if (mediaPath) {
         const audioComponent = document.createElement('div')
-        audioComponent.className = 'my-4'
+        audioComponent.className = 'my-20'
         const audio = document.createElement('audio')
         audio.controls = true
         audio.className = 'w-full'

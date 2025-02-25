@@ -7,7 +7,7 @@ interface AudioPlayerProps {
 
 export default function AudioPlayer({ src, title }: AudioPlayerProps) {
   return (
-    <div className="my-4">
+    <div className="my-10">
       <audio
         controls
         className="w-full"

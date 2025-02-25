@@ -5,9 +5,7 @@ import { siteConfig } from '@/config/site'
 import ThemeToggle from '@/components/ThemeToggle'
 
 interface PageParams {
-  params: {
-    page: string
-  }
+  params: Promise<{ page: string }>
 }
 
 export default async function StaticPage({ params }: PageParams) {
