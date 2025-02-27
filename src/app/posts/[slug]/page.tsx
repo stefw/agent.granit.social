@@ -32,11 +32,11 @@ export default async function PostPage({ params }: PageParams) {
   return (
     <main className="min-h-screen relative">
       {/* Container avec padding */}
-      <div className="container mx-auto px-2 md:px-4 lg:px-6 pt-6 md:pt-8 lg:pt-12">
-        {/* Grille de 12 colonnes pour le header */}
-        <div className="grid grid-cols-12 mb-16">
-          {/* Partie gauche (4 colonnes) - Nom du site */}
-          <div className="col-span-4">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-16 pt-6 sm:pt-8 lg:mt-16">
+        {/* Grille de 12 colonnes pour le header - Adaptée pour mobile */}
+        <div className="grid grid-cols-1 md:grid-cols-12 mb-8 md:mb-16 gap-4 md:gap-0">
+          {/* Partie gauche (4 colonnes sur desktop, pleine largeur sur mobile) - Nom du site */}
+          <div className="col-span-1 md:col-span-4">
             <h1 className="text-[18px] font-extrabold">
               <Link href="/" className="hover:underline transition-colors dark:text-white">
                 {siteConfig.name}
@@ -44,25 +44,27 @@ export default async function PostPage({ params }: PageParams) {
             </h1>
           </div>
           
-          {/* Partie droite (8 colonnes) - Topics et navigation */}
-          <div className="col-span-8 pl-8">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-6">
-                {allTopics.map(topic => (
-                  <Link 
-                    key={topic}
-                    href={`/topics/${normalizeUrl(topic)}`}
-                    className={`group flex items-start hover:text-[#0000CC] dark:hover:text-[#6666FF] transition-colors nav-link ${
-                      topic === post.topic ? 'font-medium text-[#0000CC] dark:text-[#6666FF]' : 'dark:text-white'
-                    }`}
-                  >
-                    <span className="text-[10px] font-medium relative -top-1 mr-0.5 dark:text-white">{topicCounts[topic] || 0}</span>
-                    <span className="text-[18px] font-medium">{topic}</span>
-                  </Link>
-                ))}
+          {/* Partie droite (8 colonnes sur desktop, pleine largeur sur mobile) - Topics et navigation */}
+          <div className="col-span-1 md:col-span-8 md:pl-8">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+              <div className="overflow-x-auto pb-4 sm:pb-0 -mx-4 px-4 sm:mx-0 sm:px-0">
+                <div className="flex items-center space-x-6 min-w-max">
+                  {allTopics.map(topic => (
+                    <Link 
+                      key={topic}
+                      href={`/topics/${normalizeUrl(topic)}`}
+                      className={`group flex items-start hover:text-[#0000CC] dark:hover:text-[#6666FF] transition-colors nav-link ${
+                        topic === post.topic ? 'font-medium text-[#0000CC] dark:text-[#6666FF]' : 'dark:text-white'
+                      }`}
+                    >
+                      <span className="text-[10px] font-medium relative -top-1 mr-0.5 dark:text-white">{topicCounts[topic] || 0}</span>
+                      <span className="text-[16px] sm:text-[18px] font-medium">{topic}</span>
+                    </Link>
+                  ))}
+                </div>
               </div>
               
-              <div className="flex items-center">
+              <div className="flex items-center mt-4 sm:mt-0">
                 <Link 
                   href="/about"
                   className="text-xl hover:text-[#0000CC] dark:hover:text-[#6666FF] transition-colors nav-link mr-4 dark:text-white"
@@ -76,17 +78,17 @@ export default async function PostPage({ params }: PageParams) {
         
         {/* Article */}
         <article>
-          {/* Première section qui prend la hauteur de l'écran visible moins le header */}
-          <section className="h-[calc(100vh-120px)] flex flex-col">
+          {/* Première section qui prend la hauteur de l'écran visible moins le header - Adaptée pour mobile */}
+          <section className="min-h-[50vh] md:h-[calc(100vh-180px)] flex flex-col">
             {/* Titre centré verticalement */}
             <div className="flex-grow flex items-center">
-              <h1 className="text-[90px] font-medium leading-[1.1] max-w-[90%]">
+              <h1 className="text-[40px] sm:text-[60px] md:text-[90px] font-medium leading-[1.1] max-w-full md:max-w-[90%]">
                 {post.title}
               </h1>
             </div>
             
             {/* Informations remontées légèrement */}
-            <div className="flex justify-between items-center pb-16 pt-4">
+            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center pb-8 md:pb-16 space-y-4 sm:space-y-0">
               <div className="flex items-center">
                 <Link href="/" className="flex items-center text-sm hover:underline dark:text-white">
                   <span>Retour</span>
@@ -111,15 +113,15 @@ export default async function PostPage({ params }: PageParams) {
             </div>
           </section>
           
-          {/* Contenu de l'article en grille */}
-          <div className="grid grid-cols-12 gap-8 mt-16">
-            {/* Colonne de gauche vide pour maintenir la structure */}
-            <div className="col-span-4">
+          {/* Contenu de l'article en grille - Adaptée pour mobile */}
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 mt-8 md:mt-16">
+            {/* Colonne de gauche vide pour maintenir la structure - Cachée sur mobile */}
+            <div className="hidden md:block md:col-span-4">
               {/* Espace vide intentionnel */}
             </div>
             
-            {/* Colonne de droite avec le contenu */}
-            <div className="col-span-8">
+            {/* Colonne de droite avec le contenu - Pleine largeur sur mobile */}
+            <div className="col-span-1 md:col-span-8">
               {/* Lecteur vidéo laisser cacher */}
               {/* <div className="mb-12 w-full rounded-lg overflow-hidden bg-black relative aspect-video">
                 <div className="absolute inset-0 flex items-center justify-center">
@@ -132,7 +134,7 @@ export default async function PostPage({ params }: PageParams) {
               </div> */}
 
               {/* Contenu de l'article */}
-              <div className="prose prose-lg dark:prose-invert prose-headings:text-[#0E0D09] prose-p:text-[#0E0D09] dark:prose-headings:text-[#B0B0B0] dark:prose-p:text-[#B0B0B0] max-w-none text-[22px]">
+              <div className="prose prose-lg dark:prose-invert prose-headings:text-[#0E0D09] prose-p:text-[#0E0D09] dark:prose-headings:text-[#B0B0B0] dark:prose-p:text-[#B0B0B0] max-w-none text-[18px] md:text-[22px]">
                 <PostContent content={post.content} />
               </div>
             </div>
@@ -140,8 +142,8 @@ export default async function PostPage({ params }: PageParams) {
         </article>
       </div>
       
-      {/* Theme toggle fixé en bas à droite */}
-      <div className="fixed bottom-8 right-8">
+      {/* Theme toggle fixé en bas à droite, aligné avec le "?" */}
+      <div className="fixed bottom-4 right-4 sm:bottom-8 sm:right-8 md:right-[calc(16px+4.166%)]">
         <ThemeToggle />
       </div>
     </main>

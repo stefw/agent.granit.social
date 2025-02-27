@@ -107,7 +107,7 @@ export default function PostContent({ content }: PostContentProps) {
       className="prose prose-lg max-w-none 
         prose-headings:font-light prose-headings:text-black dark:prose-headings:text-white
         prose-h1:text-4xl prose-h2:text-2xl prose-h3:text-xl
-        prose-pre:font-mono prose-pre:bg-black dark:prose-pre:bg-gray-800 prose-pre:text-xs prose-pre:whitespace-pre-wrap 
+        prose-pre:font-mono prose-pre:bg-transparent dark:prose-pre:transparent prose-pre:text-xs prose-pre:whitespace-pre-wrap 
         prose-code:font-mono prose-code:text-xs prose-code:text-white dark:prose-code:text-white prose-code:whitespace-pre-wrap
         prose-p:text-[22px] font-medium prose-p:leading-relaxed prose-p:text-[#111408] dark:prose-p:text-white
         prose-strong:font-bold prose-strong:text-black dark:prose-strong:text-white

@@ -39,47 +39,49 @@ export default async function TopicPage({ params }: PageParams) {
   return (
     <main className="min-h-screen relative">
       {/* Container avec padding */}
-      <div className="container mx-auto px-2 md:px-4 lg:px-6 pt-6 md:pt-8 lg:pt-12">
-        {/* Grille de 12 colonnes */}
-        <div className="grid grid-cols-12 min-h-screen">
-          {/* Partie gauche (4 colonnes) - Header */}
-          <div className="col-span-4 pr-4 flex flex-col">
-            <div className="sticky top-8">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-16 pt-6 sm:pt-8 lg:mt-16">
+        {/* Grille de 12 colonnes - Adaptée pour mobile */}
+        <div className="grid grid-cols-1 md:grid-cols-12 min-h-screen gap-8 md:gap-0">
+          {/* Partie gauche (4 colonnes sur desktop, pleine largeur sur mobile) - Header */}
+          <div className="col-span-1 md:col-span-4 md:pr-4 flex flex-col">
+            <div className="md:sticky md:top-8">
               <h1 className="text-[18px] font-extrabold mb-4">
                 <Link href="/" className="hover:underline transition-colors dark:text-white">
                   {siteConfig.name}
                 </Link>
               </h1>
-              <div className="h-[calc(100vh-200px)] flex items-center">
-                <p className="text-[18px] font-normal text-[#0E0D09] dark:text-white leading-[1.3]">
+              <div className="h-auto md:h-[calc(100vh-200px)] flex items-start md:items-center mb-8 md:mb-0">
+                <p className="text-[16px] md:text-[18px] font-normal text-[#0E0D09] dark:text-white leading-[1.3]">
                   {siteConfig.description}
                 </p>
               </div>
             </div>
           </div>
           
-          {/* Partie droite (8 colonnes) - Contenu */}
-          <div className="col-span-8 pl-8">
-            {/* Navigation principale */}
-            <div className="flex items-center justify-between mb-16">
-              <div className="flex items-center space-x-6">
-                {allTopics.map(topic => (
-                  <Link 
-                    key={topic}
-                    href={`/topics/${normalizeUrl(topic)}`}
-                    className={`group flex items-start hover:text-[#0000CC] dark:hover:text-[#6666FF] transition-colors nav-link ${
-                      topic === originalTopic ? 'font-medium text-[#0000CC] dark:text-[#6666FF]' : 'dark:text-white'
-                    }`}
-                  >
-                    <span className="text-[10px] font-medium relative -top-1 mr-0.5 dark:text-white">{topicCounts[topic] || 0}</span>
-                    <span className="text-[18px] font-medium">{topic}</span>
-                  </Link>
-                ))}
+          {/* Partie droite (8 colonnes sur desktop, pleine largeur sur mobile) - Contenu */}
+          <div className="col-span-1 md:col-span-8 md:pl-8">
+            {/* Navigation principale - Scrollable sur mobile */}
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-8 md:mb-16">
+              <div className="overflow-x-auto pb-4 sm:pb-0 -mx-4 px-4 sm:mx-0 sm:px-0">
+                <div className="flex items-center space-x-6 min-w-max">
+                  {allTopics.map(topic => (
+                    <Link 
+                      key={topic}
+                      href={`/topics/${normalizeUrl(topic)}`}
+                      className={`group flex items-start hover:text-[#0000CC] dark:hover:text-[#6666FF] transition-colors nav-link ${
+                        topic === originalTopic ? 'font-medium text-[#0000CC] dark:text-[#6666FF]' : 'dark:text-white'
+                      }`}
+                    >
+                      <span className="text-[10px] font-medium relative -top-1 mr-0.5 dark:text-white">{topicCounts[topic] || 0}</span>
+                      <span className="text-[16px] sm:text-[18px] font-medium">{topic}</span>
+                    </Link>
+                  ))}
+                </div>
               </div>
               
               <Link 
                 href="/about"
-                className="text-xl hover:text-[#0000CC] dark:hover:text-[#6666FF] transition-colors nav-link dark:text-white"
+                className="text-xl hover:text-[#0000CC] dark:hover:text-[#6666FF] transition-colors nav-link dark:text-white mt-4 sm:mt-0"
               >
                 ?
               </Link>
@@ -110,7 +112,7 @@ export default async function TopicPage({ params }: PageParams) {
                     href={`/posts/${post.slug}`} 
                     className="block hover:opacity-95 transition-opacity"
                   >
-                    <h2 className="text-[40px] font-medium leading-[1.2]">
+                    <h2 className="text-[28px] sm:text-[32px] md:text-[40px] font-medium leading-[1.2]">
                       {post.title}
                     </h2>
                   </Link>
@@ -127,10 +129,13 @@ export default async function TopicPage({ params }: PageParams) {
         </div>
       </div>
       
-      {/* Theme toggle fixé en bas à droite */}
-      <div className="fixed bottom-8 right-8">
+      {/* Theme toggle fixé en bas à droite, aligné avec le "?" */}
+      <div className="fixed bottom-4 right-4 sm:bottom-8 sm:right-8 md:right-[calc(16px+4.166%)]">
         <ThemeToggle />
       </div>
     </main>
   )
 } 
+
+
+

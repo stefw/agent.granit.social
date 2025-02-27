@@ -6,12 +6,12 @@ export default function Footer() {
   return (
     <footer className="mt-2">
       <div className="container mx-auto px-2 md:px-4 lg:px-6 pb-6 md:pb-8 lg:pb-12">
-        <div className="grid grid-cols-12">
+        <div className="grid md:grid-cols-12">
           {/* Partie gauche (4 colonnes) - vide pour maintenir l'alignement */}
-          <div className="col-span-4"></div>
+          <div className="md:col-span-4"></div>
           
           {/* Partie droite (8 colonnes) - contenu du footer */}
-          <div className="col-span-8 pl-8 py-8">
+          <div className="col-span-1 md:col-span-8 md:pl-8 py-8">
             <div className="mb-16">
               <NewsletterForm />
             </div>
@@ -27,7 +27,7 @@ export default function Footer() {
                   </li>
                 </ul>
               </div>
-              <div className="md:col-span-3">
+              <div className="col-span-1 md:col-span-3">
                 <h3 className="text-xs uppercase text-gray-500 mb-4">Manifesto</h3>
                 <p className="text-xs text-gray-600 dark:text-gray-400">
                   Agentic Or Not explore les initiatives et l&apos;autonomie dans un monde transformé par l&apos;intelligence artificielle. À travers des articles, des analyses et des réflexions, nous examinons comment préserver notre capacité d&apos;action et notre indépendance.
