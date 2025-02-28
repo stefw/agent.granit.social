@@ -25,7 +25,7 @@ export default async function Home() {
       {/* Container avec padding */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-16 pt-6 sm:pt-8 lg:mt-16">
         {/* Grille de 12 colonnes - Adaptée pour mobile */} 
-        <div className="grid grid-cols-1 md:grid-cols-12 min-h-screen gap-8 md:gap-0">
+        <div className="grid grid-cols-1 md:grid-cols-12 md:min-h-screen gap-8 md:gap-0">
           {/* Partie gauche (4 colonnes sur desktop, pleine largeur sur mobile) - Header */}
           <div className="col-span-1 md:col-span-4 md:pr-4 flex flex-col">
             <div className="md:sticky md:top-8">
@@ -108,7 +108,7 @@ export default async function Home() {
       </div>
 
       {/* Theme toggle fixé en bas à droite, aligné avec le "?" */}
-      <div className="fixed bottom-4 right-4 sm:bottom-8 sm:right-8 md:right-[calc(16px+4.166%)]">
+      <div className="fixed bottom-4 right-4 sm:bottom-8 sm:right-8 md:right-[calc(3em+4.166%)]">
         <ThemeToggle />
       </div>
     </main>

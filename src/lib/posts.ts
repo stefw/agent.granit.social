@@ -52,6 +52,10 @@ const md = new MarkdownIt({
   // Regex pour détecter les liens Obsidian vers les fichiers audio
   const audioRegex = /!\[\[(.*?\.m4a)\]\]/;
 
+  // Regex pour détecter les liens Obsidian vers les images
+  // Capture tous les types d'images courants et aussi les fichiers sans extension (pour les GIF)
+  const imageRegex = /!\[\[(.*?(?:\.(?:jpg|jpeg|png|gif|webp|svg)|(?!\.m4a)))\]\]/;
+
   md.inline.ruler.before('link', 'obsidian_audio', function(state, silent) {
     const match = state.src.slice(state.pos).match(audioRegex);
     if (!match) return false;
@@ -65,6 +69,28 @@ const md = new MarkdownIt({
       const mediaPath = segments.join('/');
       const token = state.push('html_inline', '', 0);
       token.content = `<div data-audio-file="${mediaPath}"></div>`;
+      state.pos += match[0].length;
+    }
+    
+    return true;
+  });
+
+  // Règle pour les images Obsidian
+  md.inline.ruler.before('link', 'obsidian_image', function(state, silent) {
+    const match = state.src.slice(state.pos).match(imageRegex);
+    if (!match) return false;
+    
+    if (!silent) {
+      const fileName = match[1];
+      // Récupérer le topic du post actuel depuis l'environnement
+      const topic = state.env.topic || '';
+      // Construire le chemin avec les segments encodés individuellement
+      const segments = [topic, 'medias', fileName].filter(Boolean);
+      const mediaPath = segments.join('/');
+      
+      const token = state.push('html_inline', '', 0);
+      // Utiliser data-image-file comme pour les fichiers audio, au lieu de générer directement l'image
+      token.content = `<div data-image-file="${mediaPath}"></div>`;
       state.pos += match[0].length;
     }
     

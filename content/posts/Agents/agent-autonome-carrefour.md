@@ -6,7 +6,8 @@ cover: /images/monaco.jpg
 ---
 
 Ce soir c’est crêpes à la maison.  
-J’ai besoin de **lait** et d’**oeufs bio**, Carrefour bien entendu.
+J’ai besoin de **lait** et d’**oeufs bio**, Carrefour bien entendu. J'aime tellement cette marque qui augmente ces prix tous des 4 mois.
+
 Je lâche mon **agent** sur le eCommerce de [carrefour.Fr](https://carrefour.fr)
 
 Il est contrôlé un minimum - je ne veux pas qu’il fasse de bêtises - par un système d’instructions savamment (!) pensé par mes soins.

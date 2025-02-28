@@ -22,22 +22,22 @@ export default function Footer() {
                 <ul className="space-y-2">
                   <li>
                     <Link href="/about" className="text-xs text-gray-600 dark:text-gray-400 hover:text-red-600 transition-colors">
-                      Qui suis je ?
+                        Qui suis je ?
                     </Link>
                   </li>
                 </ul>
               </div>
               <div className="col-span-1 md:col-span-3">
                 <h3 className="text-xs uppercase text-gray-500 mb-4">Manifesto</h3>
-                <p className="text-xs text-gray-600 dark:text-gray-400">
-                  Agentic Or Not explore les initiatives et l&apos;autonomie dans un monde transformé par l&apos;intelligence artificielle. À travers des articles, des analyses et des réflexions, nous examinons comment préserver notre capacité d&apos;action et notre indépendance.
+                <p className="text-xs text-black dark:text-white">
+                   {siteConfig.description}
                 </p>
               </div>
             </div>
 
             <div className="mt-12 pt-8">
               <p className="text-xs text-gray-500 text-center">
-                © {new Date().getFullYear()} {siteConfig.name}. Tous droits réservés.
+                © {new Date().getFullYear()} {siteConfig.name}.
               </p>
             </div>
           </div>

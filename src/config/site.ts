@@ -1,6 +1,6 @@
 export const siteConfig = {
   name: "Agentic Or Not",
-  description: "Cramées à l'IA, annihilées par TikTok et ces daubes, quelques âmes audacieuses tentent, contre vents et marées, de préserver l'initiative et l'autonomie comme si leurs vies en dépendaient — ce qui, en toute honnêteté, pourrait très bien être le cas. Nous sommes ici pour tenter de comprendre, afin de pouvoir organiser les luttes qui viennent.",
+  description: "Droguées à l'IA, dissoutes par TikTok et toutes les daubes Hanounesques, des âmes audacieuses tentent, contre vents et marées, de préserver l'initiative et l'autonomie, comme si leurs vies en dépendaient — ce qui, en toute honnêteté, pourrait très bien être le cas. Nous sommes ici pour tenter de comprendre, et pouvoir organiser les luttes qui viennent.",
   url: "https://agent.granit.social",
   ogImage: "https://agent.granit.social/og.jpg",
   links: {
@@ -9,7 +9,7 @@ export const siteConfig = {
   },
   newsletter: {
     title: "Newsletter",
-    description: "sqdfqsdf"
+    description: "Abonnez-vous à notre newsletter"
   },
   home: {
     postsPerTopic: 3, // Nombre de posts à afficher par topic sur la page d'accueil

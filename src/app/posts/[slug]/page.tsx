@@ -30,7 +30,7 @@ export default async function PostPage({ params }: PageParams) {
   }, {} as Record<string, number>)
 
   return (
-    <main className="min-h-screen relative">
+    <main className="md:min-h-screen relative">
       {/* Container avec padding */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-16 pt-6 sm:pt-8 lg:mt-16">
         {/* Grille de 12 colonnes pour le header - Adaptée pour mobile */}
@@ -65,12 +65,12 @@ export default async function PostPage({ params }: PageParams) {
               </div>
               
               <div className="flex items-center mt-4 sm:mt-0">
-                <Link 
-                  href="/about"
-                  className="text-xl hover:text-[#0000CC] dark:hover:text-[#6666FF] transition-colors nav-link mr-4 dark:text-white"
-                >
-                  ?
-                </Link>
+              <Link 
+                href="/about"
+                className="text-xl hover:text-[#0000CC] dark:hover:text-[#6666FF] transition-colors nav-link dark:text-white mt-4 sm:mt-0"
+              >
+                ?
+              </Link>
               </div>
             </div>
           </div>
@@ -88,7 +88,7 @@ export default async function PostPage({ params }: PageParams) {
             </div>
             
             {/* Informations remontées légèrement */}
-            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center pb-8 md:pb-16 space-y-4 sm:space-y-0">
+            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center pb-8 md:pb-24 space-y-4 sm:space-y-0">
               <div className="flex items-center">
                 <Link href="/" className="flex items-center text-sm hover:underline dark:text-white">
                   <span>Retour</span>
@@ -143,7 +143,7 @@ export default async function PostPage({ params }: PageParams) {
       </div>
       
       {/* Theme toggle fixé en bas à droite, aligné avec le "?" */}
-      <div className="fixed bottom-4 right-4 sm:bottom-8 sm:right-8 md:right-[calc(16px+4.166%)]">
+      <div className="fixed bottom-4 right-4 sm:bottom-8 sm:right-8 md:right-[calc(3em+4.166%)]">
         <ThemeToggle />
       </div>
     </main>

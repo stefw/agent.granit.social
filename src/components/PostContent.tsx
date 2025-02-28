@@ -12,15 +12,15 @@ mermaid.initialize({
     fontSize: '14px',
     lineHeight: '1.5',
     primaryColor: '#dc2626', // text-red-600
-    primaryTextColor: '#1f2937', // text-gray-800
+    primaryTextColor: '#000000', // Noir pour le texte
     primaryBorderColor: '#dc2626',
-    secondaryColor: '#ffffff', // blanc pour le fond des nodes
-    tertiaryColor: '#ffffff',
-    mainBkg: '#ffffff', // fond blanc pour tous les éléments
+    secondaryColor: '#f5f5dc', // Fond beige clair pour les nodes
+    tertiaryColor: '#f5f5dc', // Beige clair
+    mainBkg: '#f5f5dc', // Fond beige clair pour tous les éléments
     nodeBorder: '#dc2626',
-    clusterBkg: '#f9fafb', // gray-50 pour les clusters
-    titleColor: '#1f2937',
-    edgeLabelBackground: '#ffffff',
+    clusterBkg: '#f5f5dc', // Beige clair pour les clusters
+    titleColor: '#000000', // Noir pour les titres
+    edgeLabelBackground: '#f5f5dc', // Beige clair
     lineColor: '#dc2626',
   },
   flowchart: {
@@ -83,11 +83,43 @@ export default function PostContent({ content }: PostContentProps) {
         audioComponent.className = 'my-20'
         const audio = document.createElement('audio')
         audio.controls = true
-        audio.className = 'w-full'
+        audio.className = 'w-full audio-player'
         audio.preload = 'metadata'
+        
+        // Appliquer les styles directement
+        audio.style.backgroundColor = 'var(--bg-color, #F9F9F9)'
+        document.documentElement.style.setProperty('--bg-color', document.documentElement.classList.contains('dark') ? '#0E0D09' : '#F9F9F9')
+        
+        // Mettre à jour la couleur de fond lorsque le thème change
+        const observer = new MutationObserver(() => {
+          document.documentElement.style.setProperty('--bg-color', document.documentElement.classList.contains('dark') ? '#0E0D09' : '#F9F9F9')
+        })
+        observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] })
+        audio.style.borderRadius = '4px'
+        audio.style.padding = '0px'
+        
+        // Ajouter des styles personnalisés pour le lecteur audio
+        const style = document.createElement('style')
+        style.textContent = `
+          .audio-player::-webkit-media-controls-panel {
+            background-color: #6666FF !important;
+          }
+          
+          .audio-player::-webkit-media-controls-play-button,
+          .audio-player::-webkit-media-controls-volume-slider,
+          .audio-player::-webkit-media-controls-timeline,
+          .audio-player::-webkit-media-controls-current-time-display,
+          .audio-player::-webkit-media-controls-time-remaining-display,
+          .audio-player::-webkit-media-controls-mute-button {
+            filter: brightness(200%);
+            color: white !important;
+          }
+        `
+        audioComponent.appendChild(style)
+        
         const source = document.createElement('source')
         // Construire l'URL avec le chemin complet incluant 'posts'
-        source.src = `/api/content/posts/${mediaPath}`
+        source.src = `/content/posts/${mediaPath}`
         source.type = 'audio/mp4'
         audio.appendChild(source)
         
@@ -100,6 +132,25 @@ export default function PostContent({ content }: PostContentProps) {
         element.parentNode?.replaceChild(audioComponent, element)
       }
     })
+    
+    // Remplacer les div image par le composant Image
+    const imageElements = document.querySelectorAll('[data-image-file]')
+    imageElements.forEach((element) => {
+      const mediaPath = element.getAttribute('data-image-file')
+      if (mediaPath) {
+        const img = document.createElement('img')
+        img.src = `/content/posts/${mediaPath}`
+        img.alt = mediaPath.split('/').pop() || ''
+        img.className = 'my-8 w-full'
+        
+        console.log("Image remplacée:", `/content/posts/${mediaPath}`)
+        
+        element.parentNode?.replaceChild(img, element)
+      }
+    })
+    
+
+    
   }, [content])
 
   return (
@@ -107,15 +158,17 @@ export default function PostContent({ content }: PostContentProps) {
       className="prose prose-lg max-w-none 
         prose-headings:font-light prose-headings:text-black dark:prose-headings:text-white
         prose-h1:text-4xl prose-h2:text-2xl prose-h3:text-xl
-        prose-pre:font-mono prose-pre:bg-transparent dark:prose-pre:transparent prose-pre:text-xs prose-pre:whitespace-pre-wrap 
-        prose-code:font-mono prose-code:text-xs prose-code:text-white dark:prose-code:text-white prose-code:whitespace-pre-wrap
-        prose-p:text-[22px] font-medium prose-p:leading-relaxed prose-p:text-[#111408] dark:prose-p:text-white
+        prose-pre:my-20 prose-pre:font-mono prose-pre:bg-[transparent] prose-pre:text-black dark:prose-pre:bg-[transparent] dark:prose-pre:text-[#FFFFFF] prose-pre:whitespace-pre-wrap 
+        prose-code:font-mono prose-code:text-xs prose-code:text-black prose-code:bg-[transparent] dark:prose-code:bg-[transparent] dark:prose-code:text-white prose-code:whitespace-pre-wrap
+        prose-p:text-[22px] prose-p:leading-relaxed prose-p:text-[#111408] dark:prose-p:text-white
+        prose-li:text-[20px] prose-li:leading-relaxed prose-li:text-[#111408] dark:prose-li:text-white
         prose-strong:font-bold prose-strong:text-black dark:prose-strong:text-white
         prose-a:text-[#0000CC] prose-a:no-underline hover:prose-a:text-[#0000CC]/80 dark:prose-a:text-[#6666FF] dark:hover:prose-a:text-[#6666FF]/80
         prose-table:border-collapse prose-table:w-full
         prose-thead:bg-gray-50 dark:prose-thead:bg-gray-800
-        prose-th:p-2 prose-th:text-left prose-th:font-mono prose-th:text-[0.5rem] prose-th:text-gray-600 dark:prose-th:text-white prose-th:uppercase
-        prose-td:p-2 prose-td:border-b prose-td:border-gray-200 dark:prose-td:border-gray-700 prose-td:text-xs prose-td:text-gray-600 dark:prose-td:text-white"
+        prose-th:p-2 prose-th:text-left prose-th:text-[0.5rem] prose-th:text-gray-600 dark:prose-th:text-white prose-th:uppercase
+        prose-td:p-2 prose-td:border-b prose-td:border-gray-200 dark:prose-td:border-gray-700 prose-td:text-xs prose-td:text-gray-600 dark:prose-td:text-white
+        [&_.mermaid]:bg-[#f5f5dc] [&_.mermaid]:text-black [&_.mermaid]:p-4 dark:[&_.mermaid]:bg-[#f5f5dc] dark:[&_.mermaid]:text-black"
       dangerouslySetInnerHTML={{ __html: content }}
     />
   )
