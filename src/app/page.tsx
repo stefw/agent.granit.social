@@ -45,7 +45,7 @@ export default async function Home() {
           {/* Partie droite (8 colonnes sur desktop, pleine largeur sur mobile) - Contenu */}
           <div className="col-span-1 md:col-span-8 md:pl-8">
             {/* Navigation principale - Scrollable sur mobile */}
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-8 md:mb-16">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-8 md:mb-6">
               <div className="overflow-x-auto pb-4 sm:pb-0 -mx-4 px-4 sm:mx-0 sm:px-0">
                 <div className="flex items-center space-x-6 min-w-max">
                   {allTopics.map(topic => (
@@ -61,16 +61,38 @@ export default async function Home() {
                 </div>
               </div>
               
+              {/* Lien "?" visible uniquement sur tablette et desktop */}
+              <div className="hidden sm:block">
+                <Link 
+                  href="/about"
+                  className="text-xl hover:text-[#0000CC] dark:hover:text-[#6666FF] transition-colors nav-link dark:text-white"
+                >
+                  ?
+                </Link>
+              </div>
+            </div>
+            
+            {/* Lien "?" positionné en haut à droite sur mobile */}
+            <div className="absolute top-6 right-4 sm:hidden">
               <Link 
                 href="/about"
-                className="text-xl hover:text-[#0000CC] dark:hover:text-[#6666FF] transition-colors nav-link dark:text-white mt-4 sm:mt-0"
+                className="text-xl hover:text-[#0000CC] dark:hover:text-[#6666FF] transition-colors nav-link dark:text-white"
               >
                 ?
               </Link>
             </div>
             
+
+            <div className="my-10 md:my-12">
+              <img 
+                src="/images/hp22.png" 
+                className="object-cover" 
+              />
+            </div>
+
+
             {/* Liste des posts (sans groupement par topic) */}
-            <div className="space-y-2">
+            <div className="pt-20 space-y-2">
               {sortedPosts.map((post) => (
                 <article key={post.slug} className="pb-8">
                   <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-2 space-y-1 sm:space-y-0">

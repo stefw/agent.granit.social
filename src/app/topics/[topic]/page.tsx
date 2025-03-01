@@ -45,16 +45,29 @@ export default async function TopicPage({ params }: PageParams) {
           {/* Partie gauche (4 colonnes sur desktop, pleine largeur sur mobile) - Header */}
           <div className="col-span-1 md:col-span-4 md:pr-4 flex flex-col">
             <div className="md:sticky md:top-8">
-              <h1 className="text-[18px] font-extrabold mb-4">
-                <Link href="/" className="hover:underline transition-colors dark:text-white">
-                  {siteConfig.name}
-                </Link>
-              </h1>
-              <div className="h-auto md:h-[calc(100vh-200px)] flex items-start md:items-center mb-8 md:mb-0">
+              <div className="flex justify-between items-start mb-4">
+                <h1 className="text-[18px] font-extrabold">
+                  <Link href="/" className="hover:underline transition-colors dark:text-white">
+                    {siteConfig.name}
+                  </Link>
+                </h1>
+                
+                {/* Image du topic positionnée en haut à droite */}
+                <div className="w-44 h-auto">
+                  <img 
+                    src={`/images/${normalizeUrl(originalTopic)}.jpg`}
+                    alt={`Image du topic ${originalTopic}`} 
+                    className="w-full h-full object-cover" 
+                  />
+                </div>
+              </div>
+
+              {/* Description du site dans un conteneur séparé pour éviter le déplacement */}
+              {/* <div className="mt-8">
                 <p className="text-[16px] md:text-[18px] font-normal text-[#0E0D09] dark:text-white leading-[1.3]">
                   {siteConfig.description}
                 </p>
-              </div>
+              </div> */}
             </div>
           </div>
           
@@ -81,7 +94,17 @@ export default async function TopicPage({ params }: PageParams) {
               
               <Link 
                 href="/about"
-                className="text-xl hover:text-[#0000CC] dark:hover:text-[#6666FF] transition-colors nav-link dark:text-white mt-4 sm:mt-0"
+                className="text-xl hover:text-[#0000CC] dark:hover:text-[#6666FF] transition-colors nav-link dark:text-white mt-4 sm:mt-0 hidden sm:block"
+              >
+                ?
+              </Link>
+            </div>
+            
+            {/* Lien "?" positionné en haut à droite sur mobile */}
+            <div className="absolute top-6 right-4 sm:hidden">
+              <Link 
+                href="/about"
+                className="text-xl hover:text-[#0000CC] dark:hover:text-[#6666FF] transition-colors nav-link dark:text-white"
               >
                 ?
               </Link>

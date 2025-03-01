@@ -9,6 +9,58 @@ import NewsletterCard from "@/components/NewsletterCard";
 export const metadata: Metadata = {
   title: siteConfig.name,
   description: siteConfig.description,
+  keywords: [
+    "agent",
+    "autonome",
+    "intelligence artificielle",
+    "IA",
+    "LLM",
+    "GPT",
+    "Claude",
+    "Anthropic",
+    "OpenAI",
+    "Mistral",
+    "Ollama",
+    "Langchain",
+    "Autogen",
+    "Crew AI",
+  ],
+  authors: [
+    {
+      name: "Granit",
+      url: "https://granit.social",
+    },
+  ],
+  creator: "Granit",
+  openGraph: {
+    type: "website",
+    locale: "fr_FR",
+    url: siteConfig.url,
+    title: siteConfig.name,
+    description: siteConfig.description,
+    siteName: siteConfig.name,
+    images: [
+      {
+        url: siteConfig.ogImage,
+        width: 1200,
+        height: 630,
+        alt: siteConfig.name,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteConfig.name,
+    description: siteConfig.description,
+    images: [siteConfig.ogImage],
+    creator: "@agent_granit",
+  },
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon-16x16.png",
+    apple: "/apple-touch-icon.png",
+  },
+  metadataBase: new URL(siteConfig.url),
 }
 
 export default function RootLayout({

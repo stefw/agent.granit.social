@@ -67,13 +67,23 @@ export default async function PostPage({ params }: PageParams) {
               <div className="flex items-center mt-4 sm:mt-0">
               <Link 
                 href="/about"
-                className="text-xl hover:text-[#0000CC] dark:hover:text-[#6666FF] transition-colors nav-link dark:text-white mt-4 sm:mt-0"
+                className="text-xl hover:text-[#0000CC] dark:hover:text-[#6666FF] transition-colors nav-link dark:text-white mt-4 sm:mt-0 hidden sm:block"
               >
                 ?
               </Link>
               </div>
             </div>
           </div>
+        </div>
+        
+        {/* Lien "?" positionné en haut à droite sur mobile */}
+        <div className="absolute top-6 right-4 sm:hidden">
+          <Link 
+            href="/about"
+            className="text-xl hover:text-[#0000CC] dark:hover:text-[#6666FF] transition-colors nav-link dark:text-white"
+          >
+            ?
+          </Link>
         </div>
         
         {/* Article */}
