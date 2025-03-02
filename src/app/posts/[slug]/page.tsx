@@ -4,9 +4,106 @@ import PostContent from '@/components/PostContent'
 import Link from 'next/link'
 import ThemeToggle from '@/components/ThemeToggle'
 import { siteConfig, normalizeUrl } from '@/config/site'
+import type { Metadata } from 'next'
 
 interface PageParams {
   params: Promise<{ slug: string }>
+}
+
+// Fonction pour extraire la première image du contenu HTML
+function extractFirstImage(content: string): string | null {
+  // Recherche d'images avec la syntaxe Obsidian ![[filename]]
+  const obsidianImageRegex = /!\[\[(.*?)\]\]/;
+  const obsidianMatch = content.match(obsidianImageRegex);
+  
+  if (obsidianMatch && obsidianMatch[1]) {
+    // Extraire le nom du fichier
+    const fileName = obsidianMatch[1];
+    return fileName;
+  }
+  
+  // Recherche d'images avec la syntaxe markdown standard ![alt](url)
+  const markdownImageRegex = /!\[.*?\]\((.*?)\)/;
+  const markdownMatch = content.match(markdownImageRegex);
+  
+  if (markdownMatch && markdownMatch[1]) {
+    return markdownMatch[1];
+  }
+  
+  // Recherche d'images avec la balise HTML <img>
+  const imgTagRegex = /<img.*?src=["'](.*?)["']/;
+  const imgMatch = content.match(imgTagRegex);
+  
+  if (imgMatch && imgMatch[1]) {
+    return imgMatch[1];
+  }
+  
+  return null;
+}
+
+// Générer les métadonnées dynamiquement pour chaque post
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+  const post = await getPostBySlug(params.slug);
+  
+  if (!post) {
+    return {
+      title: 'Post non trouvé',
+      description: 'Le post demandé n\'existe pas',
+    };
+  }
+  
+  // Extraire la première image du contenu
+  const firstImage = extractFirstImage(post.content);
+  
+  // Construire l'URL complète de l'image
+  let ogImage: string = siteConfig.ogImage; // Image par défaut
+  
+  if (firstImage) {
+    // Si c'est une image Obsidian
+    if (firstImage.endsWith('.gif') || firstImage.endsWith('.jpg') || firstImage.endsWith('.png') || firstImage.endsWith('.jpeg')) {
+      // Construire le chemin vers l'image dans le dossier medias du topic
+      ogImage = `${siteConfig.url}/content/posts/${post.topic}/medias/${firstImage}`;
+    }
+    // Si l'image est une URL absolue, l'utiliser directement
+    else if (firstImage.startsWith('http')) {
+      ogImage = firstImage;
+    } 
+    // Si l'image est un chemin relatif, construire l'URL complète
+    else {
+      // Assurez-vous que le chemin commence par un slash
+      const imagePath = firstImage.startsWith('/') ? firstImage : `/${firstImage}`;
+      ogImage = `${siteConfig.url}${imagePath}`;
+    }
+  }
+  
+  return {
+    title: post.title,
+    description: post.excerpt || `${post.title} - ${siteConfig.name}`,
+    openGraph: {
+      title: post.title,
+      description: post.excerpt || `${post.title} - ${siteConfig.name}`,
+      type: 'article',
+      url: `${siteConfig.url}/posts/${post.slug}`,
+      images: [
+        {
+          url: ogImage,
+          width: 1200,
+          height: 630,
+          alt: post.title,
+        },
+      ],
+      publishedTime: post.date,
+      authors: ['Granit'],
+      tags: [post.topic || 'article'],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.title,
+      description: post.excerpt || `${post.title} - ${siteConfig.name}`,
+      images: [ogImage],
+      creator: '@agent_granit',
+    },
+  };
 }
 
 export default async function PostPage({ params }: PageParams) {

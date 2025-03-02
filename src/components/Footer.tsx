@@ -40,6 +40,16 @@ export default function Footer() {
               </div>
             </div>
 
+
+
+            <div className="my-12">
+              <img 
+                src="/images/hok2.jpg" 
+                className="object-cover max-w-[750px]" 
+              />
+            </div>
+
+            
             <div className="mt-12 pt-8">
               <p className="text-xs text-gray-500 text-center">
                 © {new Date().getFullYear()} {siteConfig.name}.

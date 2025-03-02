@@ -83,10 +83,10 @@ export default async function Home() {
             </div>
             
 
-            <div className="my-10 md:my-12">
+            <div className="my-12">
               <img 
-                src="/images/hp22.png" 
-                className="object-cover" 
+                src="/images/hok.jpg" 
+                className="object-cover max-w-[750px]" 
               />
             </div>
 
@@ -125,6 +125,10 @@ export default async function Home() {
                 </div>
               )}
             </div>
+
+
+
+
           </div>
         </div>
       </div>
