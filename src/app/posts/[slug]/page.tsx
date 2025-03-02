@@ -6,6 +6,10 @@ import ThemeToggle from '@/components/ThemeToggle'
 import { siteConfig, normalizeUrl } from '@/config/site'
 import type { Metadata } from 'next'
 
+interface PageParams {
+  params: Promise<{ slug: string }>
+}
+
 // Fonction pour extraire la première image du contenu HTML
 function extractFirstImage(content: string): string | null {
   // Recherche d'images avec la syntaxe Obsidian ![[filename]]
@@ -102,9 +106,9 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-// Définir le composant de page avec la structure correcte pour Next.js App Router
-export default async function Page({ params }: { params: { slug: string } }) {
-  const post = await getPostBySlug(params.slug)
+export default async function PostPage({ params }: PageParams) {
+  const { slug } = await params
+  const post = await getPostBySlug(slug)
 
   if (!post) {
     notFound()
