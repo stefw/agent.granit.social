@@ -7,7 +7,7 @@ import { siteConfig, normalizeUrl } from '@/config/site'
 import type { Metadata } from 'next'
 
 type PageParams = {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }
 
 // Fonction pour extraire la première image du contenu HTML
@@ -43,7 +43,8 @@ function extractFirstImage(content: string): string | null {
 
 // Générer les métadonnées dynamiquement pour chaque post
 export async function generateMetadata({ params }: PageParams): Promise<Metadata> {
-  const post = await getPostBySlug(params.slug);
+  const { slug } = await params;
+  const post = await getPostBySlug(slug);
   
   if (!post) {
     return {
@@ -107,7 +108,8 @@ export async function generateMetadata({ params }: PageParams): Promise<Metadata
 }
 
 export default async function PostPage({ params }: PageParams) {
-  const post = await getPostBySlug(params.slug);
+  const { slug } = await params;
+  const post = await getPostBySlug(slug);
 
   if (!post) {
     notFound();
