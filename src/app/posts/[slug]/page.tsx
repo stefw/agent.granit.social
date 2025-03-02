@@ -6,11 +6,6 @@ import ThemeToggle from '@/components/ThemeToggle'
 import { siteConfig, normalizeUrl } from '@/config/site'
 import type { Metadata } from 'next'
 
-// Définir correctement les types de paramètres
-interface PageParams {
-  slug: string
-}
-
 // Fonction pour extraire la première image du contenu HTML
 function extractFirstImage(content: string): string | null {
   // Recherche d'images avec la syntaxe Obsidian ![[filename]]
@@ -43,7 +38,7 @@ function extractFirstImage(content: string): string | null {
 }
 
 // Générer les métadonnées dynamiquement pour chaque post
-export async function generateMetadata({ params }: { params: PageParams }): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const post = await getPostBySlug(params.slug);
   
   if (!post) {
@@ -107,7 +102,8 @@ export async function generateMetadata({ params }: { params: PageParams }): Prom
   };
 }
 
-export default async function PostPage({ params }: { params: PageParams }) {
+// Définir le composant de page avec les types corrects pour Next.js App Router
+export default async function PostPage({ params }: { params: { slug: string } }) {
   const post = await getPostBySlug(params.slug)
 
   if (!post) {
