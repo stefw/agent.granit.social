@@ -102,8 +102,8 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-// Définir le composant de page avec les types corrects pour Next.js App Router
-export default async function PostPage({ params }: { params: { slug: string } }) {
+// Définir le composant de page avec la structure correcte pour Next.js App Router
+export default async function Page({ params }: { params: { slug: string } }) {
   const post = await getPostBySlug(params.slug)
 
   if (!post) {
