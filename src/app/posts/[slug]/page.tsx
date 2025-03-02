@@ -6,8 +6,8 @@ import ThemeToggle from '@/components/ThemeToggle'
 import { siteConfig, normalizeUrl } from '@/config/site'
 import type { Metadata } from 'next'
 
-interface PageParams {
-  params: Promise<{ slug: string }>
+type PageParams = {
+  params: { slug: string }
 }
 
 // Fonction pour extraire la première image du contenu HTML
@@ -42,7 +42,7 @@ function extractFirstImage(content: string): string | null {
 }
 
 // Générer les métadonnées dynamiquement pour chaque post
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+export async function generateMetadata({ params }: PageParams): Promise<Metadata> {
   const post = await getPostBySlug(params.slug);
   
   if (!post) {
@@ -107,11 +107,10 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 }
 
 export default async function PostPage({ params }: PageParams) {
-  const { slug } = await params
-  const post = await getPostBySlug(slug)
+  const post = await getPostBySlug(params.slug);
 
   if (!post) {
-    notFound()
+    notFound();
   }
 
   // Récupérer tous les posts pour obtenir les topics
