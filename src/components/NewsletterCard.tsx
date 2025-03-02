@@ -29,21 +29,21 @@ export default function NewsletterCard() {
   if (!isVisible) return null
 
   return (
-    <div className="fixed inset-0 bg-white dark:bg-gray-900 z-50 flex items-center justify-center p-4">
-      <div className="max-w-sm w-full bg-white dark:bg-gray-900 rounded-lg shadow-lg border border-gray-200 dark:border-gray-800">
+    <div className="fixed inset-0 bg-[#F9F9F9] dark:bg-[#0E0D09] z-50 flex items-center justify-center p-4">
+      <div className="max-w-sm w-full bg-[#F9F9F9] dark:bg-[#0E0D09] rounded-lg shadow-lg border border-gray-200 dark:border-gray-800">
         <div className="p-6 relative">
           <button 
             onClick={handleClose}
-            className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+            className="absolute top-4 right-4 text-[#0E0D09]/70 hover:text-[#0E0D09] dark:text-[#B0B0B0]/70 dark:hover:text-[#B0B0B0] transition-colors"
           >
             ✕
           </button>
           
           <div className="mb-8">
-            <h1 className="text-3xl font-black mb-2">
+            <h1 className="text-3xl font-black mb-2 text-[#0E0D09] dark:text-[#B0B0B0]">
               {siteConfig.name}
             </h1>
-            <p className="text-sm text-gray-600 dark:text-gray-400">
+            <p className="text-sm text-[#0E0D09]/70 dark:text-[#B0B0B0]/70">
               {siteConfig.description}
             </p>
           </div>

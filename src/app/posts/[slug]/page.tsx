@@ -136,7 +136,7 @@ export default async function PostPage({ params }: PageParams) {
           {/* Partie gauche (4 colonnes sur desktop, pleine largeur sur mobile) - Nom du site */}
           <div className="col-span-1 md:col-span-4">
             <h1 className="text-[18px] font-extrabold">
-              <Link href="/" className="hover:underline transition-colors dark:text-white">
+              <Link href="/" className="hover:underline transition-colors text-[#0E0D09] dark:text-[#B0B0B0]">
                 {siteConfig.name}
               </Link>
             </h1>
@@ -152,10 +152,12 @@ export default async function PostPage({ params }: PageParams) {
                       key={topic}
                       href={`/topics/${normalizeUrl(topic)}`}
                       className={`group flex items-start hover:text-[#0000CC] dark:hover:text-[#6666FF] transition-colors nav-link ${
-                        topic === post.topic ? 'font-medium text-[#0000CC] dark:text-[#6666FF]' : 'dark:text-white'
+                        topic === post.topic 
+                          ? 'font-medium text-[#0000CC] dark:text-[#6666FF]' 
+                          : 'text-[#0E0D09] dark:text-[#B0B0B0]'
                       }`}
                     >
-                      <span className="text-[10px] font-medium relative -top-1 mr-0.5 dark:text-white">{topicCounts[topic] || 0}</span>
+                      <span className="text-[10px] font-medium relative -top-1 mr-0.5 text-[#0E0D09] dark:text-[#B0B0B0]">{topicCounts[topic] || 0}</span>
                       <span className="text-[16px] sm:text-[18px] font-medium">{topic}</span>
                     </Link>
                   ))}
@@ -163,12 +165,12 @@ export default async function PostPage({ params }: PageParams) {
               </div>
               
               <div className="flex items-center mt-4 sm:mt-0">
-              <Link 
-                href="/about"
-                className="text-xl hover:text-[#0000CC] dark:hover:text-[#6666FF] transition-colors nav-link dark:text-white mt-4 sm:mt-0 hidden sm:block"
-              >
-                ?
-              </Link>
+                <Link 
+                  href="/about"
+                  className="text-xl hover:text-[#0000CC] dark:hover:text-[#6666FF] transition-colors nav-link text-[#0E0D09] dark:text-[#B0B0B0] mt-4 sm:mt-0 hidden sm:block"
+                >
+                  ?
+                </Link>
               </div>
             </div>
           </div>
@@ -178,7 +180,7 @@ export default async function PostPage({ params }: PageParams) {
         <div className="absolute top-6 right-4 sm:hidden">
           <Link 
             href="/about"
-            className="text-xl hover:text-[#0000CC] dark:hover:text-[#6666FF] transition-colors nav-link dark:text-white"
+            className="text-xl hover:text-[#0000CC] dark:hover:text-[#6666FF] transition-colors nav-link text-[#0E0D09] dark:text-[#B0B0B0]"
           >
             ?
           </Link>
@@ -190,7 +192,7 @@ export default async function PostPage({ params }: PageParams) {
           <section className="min-h-[50vh] md:h-[calc(100vh-180px)] flex flex-col">
             {/* Titre centré verticalement */}
             <div className="flex-grow flex items-center">
-              <h1 className="text-[40px] sm:text-[60px] md:text-[90px] font-medium leading-[1.1] max-w-full md:max-w-[90%]">
+              <h1 className="text-[40px] sm:text-[60px] md:text-[90px] font-medium leading-[1.1] max-w-full md:max-w-[90%] text-[#0E0D09] dark:text-[#B0B0B0]">
                 {post.title}
               </h1>
             </div>
@@ -198,7 +200,7 @@ export default async function PostPage({ params }: PageParams) {
             {/* Informations remontées légèrement */}
             <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center pb-8 md:pb-24 space-y-4 sm:space-y-0">
               <div className="flex items-center">
-                <Link href="/" className="flex items-center text-sm hover:underline dark:text-white">
+                <Link href="/" className="flex items-center text-sm hover:underline text-[#0E0D09] dark:text-[#B0B0B0]">
                   <span>Retour</span>
                   <svg className="ml-1 w-4 h-4 rotate-180" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M14 5L21 12L14 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -207,10 +209,10 @@ export default async function PostPage({ params }: PageParams) {
               </div>
               
               <div className="flex items-center space-x-4">
-                <span className="text-sm text-[#0E0D09]/70 dark:text-white/70">
+                <span className="text-sm text-[#0E0D09]/70 dark:text-[#B0B0B0]/70">
                   {post.topic}
                 </span>
-                <time className="text-sm text-[#0E0D09]/70 dark:text-white/70">
+                <time className="text-sm text-[#0E0D09]/70 dark:text-[#B0B0B0]/70">
                   {new Date(post.date).toLocaleDateString('fr-FR', {
                     day: '2-digit',
                     month: 'short',
