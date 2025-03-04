@@ -4,11 +4,14 @@ date: 2025-02-26
 excerpt: Tout ce qu'il faut savoir sur la course la plus prestigieuse du calendrier F1
 cover: /images/monaco.jpg
 ---
-![[hok2.jpg]]
+
 Ce soir c’est crêpes à la maison.  
+
 J’ai besoin de **lait** et d’**oeufs bio**, Carrefour bien entendu. J'aime tellement cette marque qui augmente ces prix tous des 4 mois.
 
-Je lâche mon **agent** sur le eCommerce de [carrefour.Fr](https://carrefour.fr)
+![[Robot_qui_fait_des_crepes.jpg]]
+
+Je lâche mon **agent** sur le eCommerce de [carrefour.Fr](https://carrefour.fr) [^1] 
 
 Il est contrôlé un minimum - je ne veux pas qu’il fasse de bêtises - par un système d’instructions savamment (!) pensé par mes soins.
 
@@ -31,8 +34,17 @@ async def run_carrefour():
 ```
 
 
+
 [look](https://www.youtube.com/watch?v=TvqlGgS0aJw)
 
 
 
 ![[agent_history.gif]]
+[^2]
+
+
+
+
+
+[^1]: Robot qui fait des crêpes / Midjourney
+[^2]: Cinématique Browseruse

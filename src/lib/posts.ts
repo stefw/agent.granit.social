@@ -2,6 +2,7 @@ import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
 import MarkdownIt from 'markdown-it'
+import markdownItFootnote from 'markdown-it-footnote'
 
 const postsDirectory = path.join(process.cwd(), 'content/posts')
 const pagesDirectory = path.join(process.cwd(), 'content/pages')
@@ -43,7 +44,9 @@ const md = new MarkdownIt({
     }
     return `<pre class="language-${lang}"><code>${str}</code></pre>`
   }
-}).use((md) => {
+})
+.use(markdownItFootnote)
+.use((md) => {
   // Règle personnalisée pour les liens YouTube
   const defaultRender = md.renderer.rules.link_open || function(tokens, idx, options, env, self) {
     return self.renderToken(tokens, idx, options);

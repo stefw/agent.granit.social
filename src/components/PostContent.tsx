@@ -61,7 +61,7 @@ export default function PostContent({ content }: PostContentProps) {
       if (videoId) {
         const youtubeComponent = document.createElement('div')
         const root = document.createElement('div')
-        root.className = 'relative w-full pb-[56.25%] h-0 rounded-lg overflow-hidden my-8'
+        root.className = 'relative w-full pb-[56.25%] h-0 rounded-lg overflow-hidden my-20'
         const iframe = document.createElement('iframe')
         iframe.src = `https://www.youtube.com/embed/${videoId}`
         iframe.title = 'YouTube video player'
@@ -158,7 +158,7 @@ export default function PostContent({ content }: PostContentProps) {
       className="prose prose-lg max-w-none 
         prose-headings:font-light prose-headings:text-black dark:prose-headings:text-white
         prose-h1:text-4xl prose-h2:text-2xl prose-h3:text-xl
-        prose-pre:my-20 prose-pre:font-mono prose-pre:bg-[transparent] prose-pre:text-black dark:prose-pre:bg-[transparent] dark:prose-pre:text-[#FFFFFF] prose-pre:whitespace-pre-wrap 
+        prose-pre:my-20 prose-pre:font-mono prose-pre:bg-[transparent] prose-pre:text-black dark:prose-pre:bg-[transparent] dark:prose-pre:text-[#FFFFFF] prose-pre:whitespace-pre-wrap prose-pre:border-l-[20px] 
         prose-code:font-mono prose-code:text-xs prose-code:text-black prose-code:bg-[transparent] dark:prose-code:bg-[transparent] dark:prose-code:text-white prose-code:whitespace-pre-wrap
         prose-p:text-[22px] prose-p:leading-relaxed prose-p:text-[#111408] dark:prose-p:text-white
         prose-li:text-[20px] prose-li:leading-relaxed prose-li:text-[#111408] dark:prose-li:text-white
@@ -168,7 +168,15 @@ export default function PostContent({ content }: PostContentProps) {
         prose-thead:bg-gray-50 dark:prose-thead:bg-gray-800
         prose-th:p-2 prose-th:text-left prose-th:text-[0.5rem] prose-th:text-gray-600 dark:prose-th:text-white prose-th:uppercase
         prose-td:p-2 prose-td:border-b prose-td:border-gray-200 dark:prose-td:border-gray-700 prose-td:text-xs prose-td:text-gray-600 dark:prose-td:text-white
-        [&_.mermaid]:bg-[#f5f5dc] [&_.mermaid]:text-black [&_.mermaid]:p-4 dark:[&_.mermaid]:bg-[#f5f5dc] dark:[&_.mermaid]:text-black"
+        [&_.mermaid]:bg-[#f5f5dc] [&_.mermaid]:text-black [&_.mermaid]:p-4 dark:[&_.mermaid]:bg-[#f5f5dc] dark:[&_.mermaid]:text-black
+        [&_.footnotes]:mt-16  [&_.footnotes]:border-t [&_.footnotes]:border-b [&_.footnotes]:border-gray-200 dark:[&_.footnotes]:border-gray-700
+        [&_.footnotes-sep]:hidden
+        [&_.footnotes_ol]:list-decimal [&_.footnotes_ol]:pl-4
+        [&_.footnotes-list]:text-sm
+        [&_.footnotes_li]:text-sm [&_.footnotes_li]:text-gray-600 dark:[&_.footnotes_li]:text-gray-400
+        [&_.footnotes_li_p]:!text-sm [&_.footnotes_li_p]:!text-gray-600 dark:[&_.footnotes_li_p]:!text-gray-400
+        [&_.footnote-ref]:text-xs [&_.footnote-ref]:align-super [&_.footnote-ref]:text-[#0000CC] dark:[&_.footnote-ref]:text-[#6666FF]
+        [&_.footnote-backref]:ml-1 [&_.footnote-backref]:text-[#0000CC] dark:[&_.footnote-backref]:text-[#6666FF]"
       dangerouslySetInnerHTML={{ __html: content }}
     />
   )
