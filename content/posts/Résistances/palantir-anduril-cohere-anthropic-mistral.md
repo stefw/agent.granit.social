@@ -1,5 +1,5 @@
 ---
-title: Palentir, Anduril, Cohere, Anthopic et les autres sont dans un bateau, et Mistral sur une barque.
+title: Palantir, Anduril, Cohere, Anthropic et les autres sont dans un bateau, et Mistral sur une barque.
 date: 2025-03-04
 excerpt: Tout ce qu'il faut savoir sur la course la plus prestigieuse du calendrier F1
 ---
