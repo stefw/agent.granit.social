@@ -12,13 +12,30 @@ type PageParams = {
 
 // Fonction pour extraire la première image du contenu HTML
 function extractFirstImage(content: string): string | null {
+  console.log('Contenu à analyser:', content);
+  
+  // Recherche d'images avec data-image-file
+  const dataImageRegex = /<div[^>]*data-image-file="([^"]*)"[^>]*>/;
+  const dataImageMatch = content.match(dataImageRegex);
+  
+  console.log('Match data-image-file:', dataImageMatch);
+  
+  if (dataImageMatch && dataImageMatch[1]) {
+    const fileName = dataImageMatch[1].trim();
+    console.log('Fichier image trouvé (data-image-file):', fileName);
+    return fileName;
+  }
+  
   // Recherche d'images avec la syntaxe Obsidian ![[filename]]
   const obsidianImageRegex = /!\[\[(.*?)\]\]/;
   const obsidianMatch = content.match(obsidianImageRegex);
   
+  console.log('Match Obsidian:', obsidianMatch);
+  
   if (obsidianMatch && obsidianMatch[1]) {
-    // Extraire le nom du fichier
-    const fileName = obsidianMatch[1];
+    // Extraire le nom du fichier et nettoyer les espaces
+    const fileName = obsidianMatch[1].trim();
+    console.log('Fichier image trouvé (Obsidian):', fileName);
     return fileName;
   }
   
@@ -26,7 +43,10 @@ function extractFirstImage(content: string): string | null {
   const markdownImageRegex = /!\[.*?\]\((.*?)\)/;
   const markdownMatch = content.match(markdownImageRegex);
   
+  console.log('Match Markdown:', markdownMatch);
+  
   if (markdownMatch && markdownMatch[1]) {
+    console.log('Fichier image trouvé (Markdown):', markdownMatch[1]);
     return markdownMatch[1];
   }
   
@@ -34,10 +54,14 @@ function extractFirstImage(content: string): string | null {
   const imgTagRegex = /<img.*?src=["'](.*?)["']/;
   const imgMatch = content.match(imgTagRegex);
   
+  console.log('Match HTML:', imgMatch);
+  
   if (imgMatch && imgMatch[1]) {
+    console.log('Fichier image trouvé (HTML):', imgMatch[1]);
     return imgMatch[1];
   }
   
+  console.log('Aucune image trouvée');
   return null;
 }
 
@@ -53,28 +77,43 @@ export async function generateMetadata({ params }: PageParams): Promise<Metadata
     };
   }
   
+  console.log('Analyse du post:', post.slug);
+  
   // Extraire la première image du contenu
   const firstImage = extractFirstImage(post.content);
   
+  console.log('Image extraite:', firstImage);
+  
   // Construire l'URL complète de l'image
-  let ogImage: string = siteConfig.ogImage; // Image par défaut
+  let ogImage: string | null = null;
   
   if (firstImage) {
-    // Si c'est une image Obsidian
+    // Si c'est une image Obsidian ou une image avec data-image-file
     if (firstImage.endsWith('.gif') || firstImage.endsWith('.jpg') || firstImage.endsWith('.png') || firstImage.endsWith('.jpeg')) {
+      // Extraire uniquement le nom du fichier du chemin complet
+      const fileName = firstImage.split('/').pop() || firstImage;
       // Construire le chemin vers l'image dans le dossier medias du topic
-      ogImage = `${siteConfig.url}/content/posts/${post.topic}/medias/${firstImage}`;
+      ogImage = `${siteConfig.url}/content/posts/${post.topic}/medias/${fileName}`;
+      console.log('URL de l\'image construite (Obsidian):', ogImage);
     }
     // Si l'image est une URL absolue, l'utiliser directement
     else if (firstImage.startsWith('http')) {
       ogImage = firstImage;
+      console.log('URL de l\'image (absolue):', ogImage);
     } 
     // Si l'image est un chemin relatif, construire l'URL complète
     else {
       // Assurez-vous que le chemin commence par un slash
       const imagePath = firstImage.startsWith('/') ? firstImage : `/${firstImage}`;
       ogImage = `${siteConfig.url}${imagePath}`;
+      console.log('URL de l\'image (relative):', ogImage);
     }
+  }
+
+  // Utiliser l'image par défaut uniquement si aucune image n'a été trouvée dans le post
+  if (!ogImage) {
+    ogImage = siteConfig.ogImage;
+    console.log('Utilisation de l\'image par défaut:', ogImage);
   }
   
   return {

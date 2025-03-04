@@ -4,7 +4,7 @@ date: 2025-02-26
 excerpt: Tout ce qu'il faut savoir sur la course la plus prestigieuse du calendrier F1
 cover: /images/monaco.jpg
 ---
-
+![[hok2.jpg]]
 Ce soir c’est crêpes à la maison.  
 J’ai besoin de **lait** et d’**oeufs bio**, Carrefour bien entendu. J'aime tellement cette marque qui augmente ces prix tous des 4 mois.
 
