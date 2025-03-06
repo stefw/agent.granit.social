@@ -14,25 +14,27 @@ export const metadata: Metadata = {
 export default async function NewPostPage() {
   const cookieStore = await cookies();
   
-  const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      cookies: {
-        get(name: string) {
-          return cookieStore.get(name)?.value;
+    const supabase = createServerClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      {
+        cookies: {
+          get(name: string) {
+            return cookieStore.get(name)?.value;
+          },
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          set(name: string, value: string, options: Record<string, unknown>) {
+            // Note: Dans Next.js 15, on ne peut pas modifier les cookies dans un composant serveur
+            // Cette fonction ne sera pas utilisée ici, mais est nécessaire pour l'interface
+          },
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          remove(name: string, options: Record<string, unknown>) {
+            // Note: Dans Next.js 15, on ne peut pas modifier les cookies dans un composant serveur
+            // Cette fonction ne sera pas utilisée ici, mais est nécessaire pour l'interface
+          },
         },
-        set(name: string, value: string, options: any) {
-          // Note: Dans Next.js 15, on ne peut pas modifier les cookies dans un composant serveur
-          // Cette fonction ne sera pas utilisée ici, mais est nécessaire pour l'interface
-        },
-        remove(name: string, options: any) {
-          // Note: Dans Next.js 15, on ne peut pas modifier les cookies dans un composant serveur
-          // Cette fonction ne sera pas utilisée ici, mais est nécessaire pour l'interface
-        },
-      },
-    }
-  );
+      }
+    );
   
   // Vérifier si l'utilisateur est authentifié
   const { data: { session } } = await supabase.auth.getSession();

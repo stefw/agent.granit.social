@@ -20,11 +20,13 @@ export async function DELETE(
           get(name: string) {
             return cookieStore.get(name)?.value;
           },
-          set(name: string, value: string, options: any) {
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          set(name: string, value: string, options: Record<string, unknown>) {
             // Note: Dans Next.js 15, on ne peut pas modifier les cookies dans un composant serveur
             // Cette fonction ne sera pas utilisée ici, mais est nécessaire pour l'interface
           },
-          remove(name: string, options: any) {
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          remove(name: string, options: Record<string, unknown>) {
             // Note: Dans Next.js 15, on ne peut pas modifier les cookies dans un composant serveur
             // Cette fonction ne sera pas utilisée ici, mais est nécessaire pour l'interface
           },
@@ -97,11 +99,13 @@ export async function PUT(
           get(name: string) {
             return cookieStore.get(name)?.value;
           },
-          set(name: string, value: string, options: any) {
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          set(name: string, value: string, options: Record<string, unknown>) {
             // Note: Dans Next.js 15, on ne peut pas modifier les cookies dans un composant serveur
             // Cette fonction ne sera pas utilisée ici, mais est nécessaire pour l'interface
           },
-          remove(name: string, options: any) {
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          remove(name: string, options: Record<string, unknown>) {
             // Note: Dans Next.js 15, on ne peut pas modifier les cookies dans un composant serveur
             // Cette fonction ne sera pas utilisée ici, mais est nécessaire pour l'interface
           },
