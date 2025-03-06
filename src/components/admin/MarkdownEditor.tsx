@@ -44,8 +44,8 @@ export default function MarkdownEditor({ initialValue, onChange, topic }: Markdo
   }, [insertText]);
   
   // Fonction appelée lorsqu'un audio est enregistré
-  const handleAudioRecorded = useCallback((url: string, _fileName: string) => {
-    // Le paramètre fileName est préfixé avec un underscore pour indiquer qu'il n'est pas utilisé
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const handleAudioRecorded = useCallback((url: string, fileName: string) => {
     const audioMarkdown = `<audio controls src="${url}"></audio>`;
     insertText(audioMarkdown);
   }, [insertText]);

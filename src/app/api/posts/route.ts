@@ -87,11 +87,12 @@ export async function POST(request: NextRequest) {
     }
     
     return NextResponse.json({ success: true, post: data });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Erreur lors de la création du post:', error);
     
+    const errorMessage = error instanceof Error ? error.message : 'Une erreur est survenue';
     return NextResponse.json(
-      { error: error.message || 'Une erreur est survenue' },
+      { error: errorMessage },
       { status: 500 }
     );
   }
@@ -159,11 +160,12 @@ export async function GET(request: NextRequest) {
         totalPages: Math.ceil((count || 0) / limit),
       },
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Erreur lors de la récupération des posts:', error);
     
+    const errorMessage = error instanceof Error ? error.message : 'Une erreur est survenue';
     return NextResponse.json(
-      { error: error.message || 'Une erreur est survenue' },
+      { error: errorMessage },
       { status: 500 }
     );
   }

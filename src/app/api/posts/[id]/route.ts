@@ -71,11 +71,12 @@ export async function DELETE(
     // mais nous les conservons pour l'instant car ils pourraient être utilisés ailleurs
     
     return NextResponse.json({ success: true });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Erreur lors de la suppression du post:', error);
     
+    const errorMessage = error instanceof Error ? error.message : 'Une erreur est survenue';
     return NextResponse.json(
-      { error: error.message || 'Une erreur est survenue' },
+      { error: errorMessage },
       { status: 500 }
     );
   }
@@ -152,11 +153,12 @@ export async function PUT(
     }
     
     return NextResponse.json({ success: true });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Erreur lors de la mise à jour du post:', error);
     
+    const errorMessage = error instanceof Error ? error.message : 'Une erreur est survenue';
     return NextResponse.json(
-      { error: error.message || 'Une erreur est survenue' },
+      { error: errorMessage },
       { status: 500 }
     );
   }

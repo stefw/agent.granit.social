@@ -1,5 +1,6 @@
 import { getAllPosts } from '@/lib/posts'
 import Link from 'next/link'
+import Image from 'next/image'
 import { siteConfig, normalizeUrl } from '@/config/site'
 import ThemeToggle from '@/components/ThemeToggle'
 
@@ -84,8 +85,11 @@ export default async function Home() {
             
 
             <div className="my-12">
-              <img 
+              <Image 
                 src="/images/hok.jpg" 
+                alt="Image d'accueil du site"
+                width={750}
+                height={500}
                 className="object-cover max-w-[750px]" 
               />
             </div>
