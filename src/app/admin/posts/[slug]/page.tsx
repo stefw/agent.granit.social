@@ -12,13 +12,13 @@ export const metadata: Metadata = {
 };
 
 interface EditPostPageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 export default async function EditPostPage({ params }: EditPostPageProps) {
-  const { slug } = params;
+  const { slug } = await params;
   const cookieStore = await cookies();
   
     const supabase = createServerClient(
