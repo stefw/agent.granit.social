@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { supabase } from '@/lib/supabase';
 
 interface AudioRecorderProps {
   onAudioRecorded: (url: string, fileName: string) => void;
@@ -91,8 +90,9 @@ export default function AudioRecorder({ onAudioRecorded, topic }: AudioRecorderP
       
       // Démarrer la visualisation
       drawVisualizer();
-    } catch (err: any) {
-      setError(err.message || 'Erreur lors de l\'accès au microphone');
+    } catch (err: unknown) {
+      const errorMessage = err instanceof Error ? err.message : 'Erreur lors de l\'accès au microphone';
+      setError(errorMessage);
       console.error('Erreur d\'enregistrement:', err);
     }
   };
@@ -217,14 +217,15 @@ export default function AudioRecorder({ onAudioRecorded, topic }: AudioRecorderP
       
       const data = await response.json();
       
-      // Appeler le callback avec l'URL
+      // Appeler le callback avec l'URL et le nom du fichier
       onAudioRecorded(data.url, data.fileName);
       
       // Réinitialiser l'état
       setAudioBlob(null);
       setAudioUrl(null);
-    } catch (error: any) {
-      setError(error.message || 'Une erreur est survenue lors de l\'upload');
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'Une erreur est survenue lors de l\'upload';
+      setError(errorMessage);
       console.error('Erreur d\'upload:', error);
     } finally {
       setUploading(false);

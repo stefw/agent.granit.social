@@ -1,5 +1,6 @@
 import { getAllPosts } from '@/lib/posts'
 import Link from 'next/link'
+import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import { normalizeUrl, siteConfig } from '@/config/site'
 import ThemeToggle from '@/components/ThemeToggle'
@@ -54,9 +55,11 @@ export default async function TopicPage({ params }: PageParams) {
                 
                 {/* Image du topic positionnée en haut à droite */}
                 <div className="w-44 h-auto">
-                  <img 
+                  <Image 
                     src={`/images/${normalizeUrl(originalTopic)}.jpg`}
                     alt={`Image du topic ${originalTopic}`} 
+                    width={176}
+                    height={132}
                     className="w-full h-full object-cover" 
                   />
                 </div>
@@ -158,7 +161,4 @@ export default async function TopicPage({ params }: PageParams) {
       </div>
     </main>
   )
-} 
-
-
-
+}

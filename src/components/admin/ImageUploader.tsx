@@ -2,7 +2,6 @@
 
 import { useState, useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { supabase } from '@/lib/supabase';
 
 interface ImageUploaderProps {
   onImageUploaded: (url: string, fileName: string) => void;
@@ -57,8 +56,9 @@ export default function ImageUploader({ onImageUploaded, topic }: ImageUploaderP
       
       // Appeler le callback avec l'URL
       onImageUploaded(data.url, data.fileName);
-    } catch (error: any) {
-      setError(error.message || 'Une erreur est survenue lors de l\'upload');
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'Une erreur est survenue lors de l\'upload';
+      setError(errorMessage);
       console.error('Erreur d\'upload:', error);
     } finally {
       setUploading(false);
