@@ -1,37 +1,6 @@
-import fs from 'fs'
-import path from 'path'
-import matter from 'gray-matter'
 import MarkdownIt from 'markdown-it'
 import markdownItFootnote from 'markdown-it-footnote'
-
-const postsDirectory = path.join(process.cwd(), 'content/posts')
-const pagesDirectory = path.join(process.cwd(), 'content/pages')
-
-// Fonction récursive pour lire les fichiers dans les sous-dossiers
-function getFilesRecursively(dir: string): string[] {
-  const files: string[] = []
-  
-  // Vérifier si le répertoire existe
-  if (!fs.existsSync(dir)) {
-    console.warn(`Le répertoire ${dir} n'existe pas`)
-    return files
-  }
-
-  const entries = fs.readdirSync(dir, { withFileTypes: true })
-
-  entries.forEach(entry => {
-    const fullPath = path.join(dir, entry.name)
-    if (entry.isDirectory()) {
-      files.push(...getFilesRecursively(fullPath))
-    } else if (entry.isFile() && entry.name.endsWith('.md')) {
-      // Obtenir le chemin relatif par rapport au dossier content
-      const relativePath = path.relative(postsDirectory, fullPath)
-      files.push(relativePath)
-    }
-  })
-
-  return files
-}
+import { supabase } from './supabase'
 
 // Regex pour extraire l'ID de la vidéo YouTube
 const youtubeRegex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/
@@ -137,93 +106,110 @@ export interface Post {
 }
 
 export async function getAllPosts(): Promise<Post[]> {
-  if (!fs.existsSync(postsDirectory)) {
-    console.warn('Le répertoire des posts n\'existe pas')
-    return []
+  const { data, error } = await supabase
+    .from('contents')
+    .select('*')
+    .eq('type', 'post')
+    .order('date', { ascending: false });
+  
+  if (error) {
+    console.error('Erreur lors de la récupération des posts:', error);
+    return [];
   }
-
-  const fileNames = getFilesRecursively(postsDirectory)
-  const allPosts = await Promise.all(fileNames.map(async (fileName) => {
-    // Extraire le slug et le topic du chemin relatif
-    const topic = path.dirname(fileName) !== '.' ? path.dirname(fileName) : undefined
-    const slug = path.basename(fileName, '.md')
-    const fullPath = path.join(postsDirectory, fileName)
-    const fileContents = await fs.promises.readFile(fullPath, 'utf8')
-    const { data, content } = matter(fileContents)
-
+  
+  return data.map(post => {
     // Passer le topic dans l'environnement du markdown
-    const env = { topic }
+    const env = { topic: post.topic };
+    
     return {
-      slug: slug,
-      title: data.title,
-      date: data.date,
-      excerpt: data.excerpt,
-      cover: data.cover,
-      content: md.render(content, env),
-      topic
-    }
-  }))
-
-  return allPosts.sort((a, b) => (a.date > b.date ? -1 : 1))
+      slug: post.slug,
+      title: post.title,
+      date: post.date,
+      excerpt: post.excerpt || '',
+      cover: post.cover || '',
+      content: md.render(post.content, env),
+      topic: post.topic
+    };
+  });
 }
 
 export async function getPostBySlug(slug: string): Promise<Post | null> {
   try {
-    const allPosts = await getAllPosts()
-    // Chercher le post par le nom du fichier uniquement
-    const post = allPosts.find(post => post.slug === slug)
+    const { data, error } = await supabase
+      .from('contents')
+      .select('*')
+      .eq('type', 'post')
+      .eq('slug', slug)
+      .single();
     
-    if (!post) {
-      return null
+    if (error || !data) {
+      console.error(`Erreur lors de la récupération du post ${slug}:`, error);
+      return null;
     }
-
-    return post
-  } catch {
-    return null
+    
+    // Passer le topic dans l'environnement du markdown
+    const env = { topic: data.topic };
+    
+    return {
+      slug: data.slug,
+      title: data.title,
+      date: data.date,
+      excerpt: data.excerpt || '',
+      cover: data.cover || '',
+      content: md.render(data.content, env),
+      topic: data.topic
+    };
+  } catch (error) {
+    console.error(`Erreur lors de la récupération du post ${slug}:`, error);
+    return null;
   }
 }
 
 export interface Page {
-  slug: string
-  title: string
-  content: string
+  slug: string;
+  title: string;
+  content: string;
 }
 
-export function getPageBySlug(slug: string): Page | null {
+export async function getPageBySlug(slug: string): Promise<Page | null> {
   try {
-    const fullPath = path.join(pagesDirectory, `${slug}.md`)
-    const fileContents = fs.readFileSync(fullPath, 'utf8')
-    const { data, content } = matter(fileContents)
-
-    return {
-      slug,
-      title: data.title,
-      content: md.render(content)
+    const { data, error } = await supabase
+      .from('contents')
+      .select('*')
+      .eq('type', 'page')
+      .eq('slug', slug)
+      .single();
+    
+    if (error || !data) {
+      console.error(`Erreur lors de la récupération de la page ${slug}:`, error);
+      return null;
     }
-  } catch {
-    return null
+    
+    return {
+      slug: data.slug,
+      title: data.title,
+      content: md.render(data.content)
+    };
+  } catch (error) {
+    console.error(`Erreur lors de la récupération de la page ${slug}:`, error);
+    return null;
   }
 }
 
-export function getAllPages(): Page[] {
-  if (!fs.existsSync(pagesDirectory)) {
-    console.warn('Le répertoire des pages n\'existe pas')
-    return []
+export async function getAllPages(): Promise<Page[]> {
+  const { data, error } = await supabase
+    .from('contents')
+    .select('*')
+    .eq('type', 'page');
+  
+  if (error) {
+    console.error('Erreur lors de la récupération des pages:', error);
+    return [];
   }
-
-  const fileNames = fs.readdirSync(pagesDirectory)
-  return fileNames
-    .filter(fileName => fileName.endsWith('.md'))
-    .map(fileName => {
-      const slug = fileName.replace(/\.md$/, '')
-      const fullPath = path.join(pagesDirectory, fileName)
-      const fileContents = fs.readFileSync(fullPath, 'utf8')
-      const { data, content } = matter(fileContents)
-
-      return {
-        slug,
-        title: data.title,
-        content: md.render(content)
-      }
-    })
-} 
+  
+  return data.map(page => ({
+    slug: page.slug,
+    title: page.title,
+    content: md.render(page.content)
+  }));
+}

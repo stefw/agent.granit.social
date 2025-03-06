@@ -74,7 +74,11 @@ export default function PostContent({ content }: PostContentProps) {
       }
     })
 
-    // Remplacer les div audio par le composant AudioPlayer
+    // Note: Les fichiers audio sont maintenant directement intégrés en HTML dans le contenu
+    // via le script de migration, donc nous n'avons plus besoin de remplacer les div audio
+    
+    // Cependant, nous conservons le code pour les éléments qui pourraient encore utiliser
+    // l'ancien format (pour la rétrocompatibilité)
     const audioElements = document.querySelectorAll('[data-audio-file]')
     audioElements.forEach((element) => {
       const mediaPath = element.getAttribute('data-audio-file')
@@ -117,9 +121,14 @@ export default function PostContent({ content }: PostContentProps) {
         `
         audioComponent.appendChild(style)
         
+        // Vérifier si le chemin est déjà une URL complète (Supabase Storage)
         const source = document.createElement('source')
-        // Construire l'URL avec le chemin complet incluant 'posts'
-        source.src = `/content/posts/${mediaPath}`
+        if (mediaPath.startsWith('http')) {
+          source.src = mediaPath
+        } else {
+          // Fallback pour les anciens chemins
+          source.src = `/content/posts/${mediaPath}`
+        }
         source.type = 'audio/mp4'
         audio.appendChild(source)
         
@@ -133,17 +142,27 @@ export default function PostContent({ content }: PostContentProps) {
       }
     })
     
-    // Remplacer les div image par le composant Image
+    // Note: Les images sont maintenant directement intégrées en markdown standard dans le contenu
+    // via le script de migration, donc nous n'avons plus besoin de remplacer les div image
+    
+    // Cependant, nous conservons le code pour les éléments qui pourraient encore utiliser
+    // l'ancien format (pour la rétrocompatibilité)
     const imageElements = document.querySelectorAll('[data-image-file]')
     imageElements.forEach((element) => {
       const mediaPath = element.getAttribute('data-image-file')
       if (mediaPath) {
         const img = document.createElement('img')
-        img.src = `/content/posts/${mediaPath}`
+        
+        // Vérifier si le chemin est déjà une URL complète (Supabase Storage)
+        if (mediaPath.startsWith('http')) {
+          img.src = mediaPath
+        } else {
+          // Fallback pour les anciens chemins
+          img.src = `/content/posts/${mediaPath}`
+        }
+        
         img.alt = mediaPath.split('/').pop() || ''
         img.className = 'my-8 w-full'
-        
-        console.log("Image remplacée:", `/content/posts/${mediaPath}`)
         
         element.parentNode?.replaceChild(img, element)
       }
@@ -180,4 +199,4 @@ export default function PostContent({ content }: PostContentProps) {
       dangerouslySetInnerHTML={{ __html: content }}
     />
   )
-} 
+}
