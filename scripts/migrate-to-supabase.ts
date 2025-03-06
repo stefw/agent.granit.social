@@ -19,7 +19,7 @@ const postsDirectory = path.join(process.cwd(), 'content/posts');
 const pagesDirectory = path.join(process.cwd(), 'content/pages');
 
 // Fonction pour uploader un fichier média vers Supabase Storage
-async function uploadMedia(filePath, topic) {
+async function uploadMedia(filePath: string, topic: string | null) {
   const fileName = path.basename(filePath);
   const fileContent = fs.readFileSync(filePath);
   
@@ -49,9 +49,9 @@ async function uploadMedia(filePath, topic) {
 }
 
 // Fonction pour déterminer le type MIME
-function getContentType(fileName) {
+function getContentType(fileName: string): string {
   const ext = path.extname(fileName).toLowerCase();
-  const mimeTypes = {
+  const mimeTypes: Record<string, string> = {
     '.jpg': 'image/jpeg',
     '.jpeg': 'image/jpeg',
     '.png': 'image/png',
@@ -65,7 +65,7 @@ function getContentType(fileName) {
 }
 
 // Fonction pour traiter le contenu markdown et remplacer les chemins des médias
-async function processContent(content, topic) {
+async function processContent(content: string, topic: string | null) {
   let processedContent = content;
   
   // Remplacer les liens Obsidian vers les images
@@ -108,11 +108,16 @@ async function processContent(content, topic) {
   return processedContent;
 }
 
+interface FileInfo {
+  path: string;
+  topic: string | null;
+}
+
 // Fonction pour migrer les posts
 async function migratePosts() {
   // Fonction récursive pour lire les fichiers dans les sous-dossiers
-  function getFilesRecursively(dir) {
-    const files = [];
+  function getFilesRecursively(dir: string): FileInfo[] {
+    const files: FileInfo[] = [];
     
     if (!fs.existsSync(dir)) {
       console.warn(`Le répertoire ${dir} n'existe pas`);
@@ -121,7 +126,7 @@ async function migratePosts() {
     
     const entries = fs.readdirSync(dir, { withFileTypes: true });
     
-    entries.forEach(entry => {
+    entries.forEach((entry: any) => {
       const fullPath = path.join(dir, entry.name);
       if (entry.isDirectory()) {
         if (entry.name !== 'medias') { // Ignorer les dossiers medias
@@ -223,7 +228,7 @@ async function createStorageBucket() {
     return;
   }
   
-  const mediaBucketExists = buckets.some(bucket => bucket.name === 'media');
+  const mediaBucketExists = buckets.some((bucket: any) => bucket.name === 'media');
   
   if (!mediaBucketExists) {
     const { data, error } = await supabase.storage.createBucket('media', {
