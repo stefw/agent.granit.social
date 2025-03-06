@@ -114,11 +114,12 @@ export async function POST(request: NextRequest) {
       path: storagePath,
       type: isImage ? 'image' : 'audio',
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Erreur lors de l\'upload du fichier:', error);
     
+    const errorMessage = error instanceof Error ? error.message : 'Une erreur est survenue';
     return NextResponse.json(
-      { error: error.message || 'Une erreur est survenue' },
+      { error: errorMessage },
       { status: 500 }
     );
   }

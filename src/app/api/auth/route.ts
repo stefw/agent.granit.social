@@ -53,17 +53,18 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       );
     }
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Erreur d\'authentification:', error);
     
+    const errorMessage = error instanceof Error ? error.message : 'Une erreur est survenue';
     return NextResponse.json(
-      { error: error.message || 'Une erreur est survenue' },
+      { error: errorMessage },
       { status: 500 }
     );
   }
 }
 
-export async function DELETE(request: NextRequest) {
+export async function DELETE() {
   try {
     const supabase = createRouteHandlerClient({ cookies });
     
@@ -75,11 +76,12 @@ export async function DELETE(request: NextRequest) {
     }
     
     return NextResponse.json({ success: true });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Erreur de déconnexion:', error);
     
+    const errorMessage = error instanceof Error ? error.message : 'Une erreur est survenue';
     return NextResponse.json(
-      { error: error.message || 'Une erreur est survenue' },
+      { error: errorMessage },
       { status: 500 }
     );
   }
