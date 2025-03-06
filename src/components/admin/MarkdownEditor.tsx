@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import dynamic from 'next/dynamic';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import ImageUploader from './ImageUploader';
@@ -26,8 +26,6 @@ interface MarkdownEditorProps {
 
 export default function MarkdownEditor({ initialValue, onChange, topic }: MarkdownEditorProps) {
   const [value, setValue] = useState(initialValue);
-  // Nous n'utiliserons pas de ref directe pour l'éditeur
-  const [editorInstance, setEditorInstance] = useState<any>(null);
   
   // Fonction pour insérer du texte
   const insertText = useCallback((text: string) => {
@@ -39,7 +37,9 @@ export default function MarkdownEditor({ initialValue, onChange, topic }: Markdo
   
   // Fonction appelée lorsqu'une image est uploadée
   const handleImageUploaded = useCallback((url: string, fileName: string) => {
-    const imageMarkdown = `![${fileName}](${url})`;
+    // Utiliser le nom du fichier comme texte alternatif pour l'image
+    const altText = fileName.split('.')[0]; // Enlever l'extension
+    const imageMarkdown = `![${altText}](${url})`;
     insertText(imageMarkdown);
   }, [insertText]);
   

@@ -108,8 +108,9 @@ export default function PostForm({ initialData = {}, isEditing = false }: PostFo
       // Rediriger vers la liste des posts
       router.push('/admin/posts');
       router.refresh();
-    } catch (error: any) {
-      setError(error.message || 'Une erreur est survenue');
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'Une erreur est survenue';
+      setError(errorMessage);
       console.error('Erreur lors de la sauvegarde du post:', error);
     } finally {
       setLoading(false);

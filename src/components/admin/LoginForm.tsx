@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 
 export default function LoginForm() {
@@ -11,7 +11,6 @@ export default function LoginForm() {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
   
-  const router = useRouter();
   const searchParams = useSearchParams();
   const redirectTo = searchParams.get('redirectTo') || '/admin';
 
@@ -44,9 +43,10 @@ export default function LoginForm() {
         // Utiliser window.location.replace pour une redirection complète
         window.location.href = redirectTo;
       }, 1500);
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'Une erreur est survenue lors de la connexion';
       console.error('Erreur de connexion:', error);
-      setError(error.message || 'Une erreur est survenue lors de la connexion');
+      setError(errorMessage);
       setLoading(false);
     }
   };
