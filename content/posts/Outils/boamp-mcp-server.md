@@ -1,17 +1,17 @@
 ---
 title: Serveur MCP pour interroger l'API BOAMP et récupérer les avis de marchés publics.
-date: 2024-05-26
+date: 2025-03-06
 excerpt: Tout ce qu'il faut savoir sur la course la plus prestigieuse du calendrier F1
 ---
 
 
-Serveur Model Context Protocol (MCP) pour interroger l'API BOAMP et récupérer les avis de marchés publics.
+Serveur Model Context Protocol (**MCP**) pour interroger l'API **BOAMP** et récupérer les avis de marchés publics.
 
 ![[mcp.png]]
 
 Ce serveur permet de rechercher des marchés publics en utilisant divers critères et d'obtenir des détails complets sur des marchés spécifiques.  
   
-A utiliser dans ton application interne et à connecter sur tes LLMs préférés ou dans cline, cursor, windsurf, Claude Desktop, etc...
+A utiliser dans ton application interne et à connecter sur tes **LLMs** préférés ou dans **cline**, **cursor**, **windsurf**, **Claude** Desktop, etc...
 
 ```
 **get_public_markets**
@@ -36,7 +36,7 @@ Récupère les détails complets d'un marché spécifique
 ```
 
 
-### Exemples
+### Exemples de requêtes
 
 - "Recherche les marchés publics contenant les mots-clés *communication et digital*"
 - "Recherche les marchés publics contenant *construction d'un hôpital*, exporte les résultats dans un CSV
@@ -44,4 +44,4 @@ Récupère les détails complets d'un marché spécifique
 
 
 
-[dépôt Github](https://github.com/stefw/boamp-server/)
+[Le dépôt Github](https://github.com/stefw/boamp-server/)
