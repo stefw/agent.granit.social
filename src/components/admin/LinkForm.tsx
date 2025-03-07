@@ -53,8 +53,8 @@ export default function LinkForm({ initialData = {}, isEditing = false }: LinkFo
     }
   }, [title, isEditing, slug]);
   
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
     setLoading(true);
     setError(null);
     
@@ -117,8 +117,8 @@ export default function LinkForm({ initialData = {}, isEditing = false }: LinkFo
         errorMessage = error.message;
       } else if (typeof error === 'object' && error !== null) {
         // Essayer d'extraire plus d'informations de l'objet d'erreur
-        const errorObj = error as any;
-        if (errorObj.message) {
+        const errorObj = error as Record<string, unknown>;
+        if (typeof errorObj.message === 'string') {
           errorMessage = errorObj.message;
         } else if (errorObj.error) {
           errorMessage = typeof errorObj.error === 'string' ? errorObj.error : JSON.stringify(errorObj.error);
