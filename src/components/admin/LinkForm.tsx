@@ -67,7 +67,7 @@ export default function LinkForm({ initialData = {}, isEditing = false }: LinkFo
       // Vérifier que l'URL est valide
       try {
         new URL(url);
-      } catch (_) {
+      } catch {
         throw new Error('L\'URL n\'est pas valide');
       }
       
