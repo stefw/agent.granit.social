@@ -89,6 +89,7 @@ export default function MarkdownEditor({ initialValue, onChange, topic }: Markdo
       {/* Barre d'outils de formatage */}
       <div className="flex flex-wrap gap-2 mb-2">
         <button
+          type="button"
           onClick={() => insertFormatting('bold')}
           className="p-2 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 rounded"
           title="Gras"
@@ -98,6 +99,7 @@ export default function MarkdownEditor({ initialValue, onChange, topic }: Markdo
           </svg>
         </button>
         <button
+          type="button"
           onClick={() => insertFormatting('italic')}
           className="p-2 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 rounded"
           title="Italique"
@@ -107,6 +109,7 @@ export default function MarkdownEditor({ initialValue, onChange, topic }: Markdo
           </svg>
         </button>
         <button
+          type="button"
           onClick={() => insertFormatting('heading')}
           className="p-2 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 rounded"
           title="Titre"
@@ -116,6 +119,7 @@ export default function MarkdownEditor({ initialValue, onChange, topic }: Markdo
           </svg>
         </button>
         <button
+          type="button"
           onClick={() => insertFormatting('link')}
           className="p-2 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 rounded"
           title="Lien"
@@ -126,6 +130,7 @@ export default function MarkdownEditor({ initialValue, onChange, topic }: Markdo
           </svg>
         </button>
         <button
+          type="button"
           onClick={() => insertFormatting('list')}
           className="p-2 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 rounded"
           title="Liste"
@@ -135,6 +140,7 @@ export default function MarkdownEditor({ initialValue, onChange, topic }: Markdo
           </svg>
         </button>
         <button
+          type="button"
           onClick={() => insertFormatting('code')}
           className="p-2 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 rounded"
           title="Code"
@@ -144,6 +150,7 @@ export default function MarkdownEditor({ initialValue, onChange, topic }: Markdo
           </svg>
         </button>
         <button
+          type="button"
           onClick={() => insertFormatting('table')}
           className="p-2 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 rounded"
           title="Tableau"

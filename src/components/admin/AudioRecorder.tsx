@@ -275,6 +275,7 @@ export default function AudioRecorder({ onAudioRecorded, topic }: AudioRecorderP
         <div className="flex space-x-2">
           {!isRecording ? (
             <button
+              type="button"
               onClick={startRecording}
               className="flex items-center justify-center w-10 h-10 rounded-full bg-red-600 hover:bg-red-700 text-white"
               title="Démarrer l'enregistrement"
@@ -286,6 +287,7 @@ export default function AudioRecorder({ onAudioRecorded, topic }: AudioRecorderP
           ) : (
             <>
               <button
+                type="button"
                 onClick={togglePause}
                 className="flex items-center justify-center w-10 h-10 rounded-full bg-blue-600 hover:bg-blue-700 text-white"
                 title={isPaused ? "Reprendre l'enregistrement" : "Mettre en pause"}
@@ -301,6 +303,7 @@ export default function AudioRecorder({ onAudioRecorded, topic }: AudioRecorderP
                 )}
               </button>
               <button
+                type="button"
                 onClick={stopRecording}
                 className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-600 hover:bg-gray-700 text-white"
                 title="Arrêter l'enregistrement"
@@ -329,6 +332,7 @@ export default function AudioRecorder({ onAudioRecorded, topic }: AudioRecorderP
           
           <div className="flex justify-end">
             <button
+              type="button"
               onClick={uploadAudio}
               disabled={uploading}
               className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md disabled:opacity-50 disabled:cursor-not-allowed"

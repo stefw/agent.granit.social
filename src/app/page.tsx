@@ -90,7 +90,9 @@ export default async function Home() {
                 alt="Image d'accueil du site"
                 width={750}
                 height={500}
-                className="object-cover max-w-[750px]" 
+                className="object-cover w-full max-w-full h-auto" 
+                sizes="(max-width: 768px) 100vw, 750px"
+                priority
               />
             </div>
 
