@@ -53,6 +53,11 @@ export default async function AdminDashboard() {
     .select('*', { count: 'exact', head: true })
     .eq('type', 'page');
   
+  const { count: linksCount } = await supabase
+    .from('contents')
+    .select('*', { count: 'exact', head: true })
+    .eq('type', 'link');
+  
   // Récupérer les derniers posts
   const { data: recentPosts } = await supabase
     .from('contents')
@@ -72,6 +77,12 @@ export default async function AdminDashboard() {
           >
             Nouveau post
           </Link>
+          <Link 
+            href="/admin/links/new" 
+            className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md"
+          >
+            Nouveau lien
+          </Link>
           <LogoutButton />
         </div>
       </div>
@@ -90,6 +101,14 @@ export default async function AdminDashboard() {
           <p className="text-3xl font-bold">{pagesCount || 0}</p>
           <Link href="/admin/pages" className="text-blue-600 hover:underline mt-2 inline-block">
             Voir toutes les pages
+          </Link>
+        </div>
+        
+        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
+          <h2 className="text-xl font-semibold mb-2">Liens</h2>
+          <p className="text-3xl font-bold">{linksCount || 0}</p>
+          <Link href="/admin/links" className="text-blue-600 hover:underline mt-2 inline-block">
+            Voir tous les liens
           </Link>
         </div>
       </div>
