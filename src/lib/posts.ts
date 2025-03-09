@@ -106,6 +106,22 @@ export interface Post {
 }
 
 export async function getAllPosts(): Promise<Post[]> {
+  // Vérifier si Supabase est configuré
+  if (!supabase) {
+    console.warn('Supabase n\'est pas configuré. Retour de données factices.');
+    return [
+      {
+        slug: 'exemple-post',
+        title: 'Exemple de post',
+        date: new Date().toISOString(),
+        excerpt: 'Ceci est un exemple de post généré car Supabase n\'est pas configuré.',
+        cover: '',
+        content: '<p>Contenu d\'exemple</p>',
+        topic: 'Exemple'
+      }
+    ];
+  }
+
   const { data, error } = await supabase
     .from('contents')
     .select('*')
@@ -134,6 +150,24 @@ export async function getAllPosts(): Promise<Post[]> {
 }
 
 export async function getPostBySlug(slug: string): Promise<Post | null> {
+  // Vérifier si Supabase est configuré
+  if (!supabase) {
+    console.warn(`Supabase n'est pas configuré. Impossible de récupérer le post ${slug}.`);
+    // Retourner un post factice si le slug correspond à notre exemple
+    if (slug === 'exemple-post') {
+      return {
+        slug: 'exemple-post',
+        title: 'Exemple de post',
+        date: new Date().toISOString(),
+        excerpt: 'Ceci est un exemple de post généré car Supabase n\'est pas configuré.',
+        cover: '',
+        content: '<p>Contenu d\'exemple</p>',
+        topic: 'Exemple'
+      };
+    }
+    return null;
+  }
+
   try {
     const { data, error } = await supabase
       .from('contents')
@@ -172,6 +206,20 @@ export interface Page {
 }
 
 export async function getPageBySlug(slug: string): Promise<Page | null> {
+  // Vérifier si Supabase est configuré
+  if (!supabase) {
+    console.warn(`Supabase n'est pas configuré. Impossible de récupérer la page ${slug}.`);
+    // Retourner une page factice si le slug correspond à "about"
+    if (slug === 'about') {
+      return {
+        slug: 'about',
+        title: 'À propos',
+        content: '<p>Cette page est générée car Supabase n\'est pas configuré.</p>'
+      };
+    }
+    return null;
+  }
+
   try {
     const { data, error } = await supabase
       .from('contents')
@@ -197,6 +245,18 @@ export async function getPageBySlug(slug: string): Promise<Page | null> {
 }
 
 export async function getAllPages(): Promise<Page[]> {
+  // Vérifier si Supabase est configuré
+  if (!supabase) {
+    console.warn('Supabase n\'est pas configuré. Retour de données factices pour les pages.');
+    return [
+      {
+        slug: 'about',
+        title: 'À propos',
+        content: '<p>Cette page est générée car Supabase n\'est pas configuré.</p>'
+      }
+    ];
+  }
+
   const { data, error } = await supabase
     .from('contents')
     .select('*')
