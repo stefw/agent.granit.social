@@ -53,9 +53,9 @@ export default function BookmarkletButton({ bookmarkletCode, siteName }: Bookmar
           <strong>Instructions :</strong>
         </p>
         <ol className="list-decimal pl-5 space-y-1">
-          <li>Cliquez sur "Copier le code" ci-dessus</li>
+          <li>Cliquez sur &quot;Copier le code&quot; ci-dessus</li>
           <li>Créez un nouveau favori dans Chrome (clic droit sur la barre de favoris → Ajouter une page...)</li>
-          <li>Donnez-lui un nom comme "Ajouter à {siteName}"</li>
+          <li>Donnez-lui un nom comme &quot;Ajouter à {siteName}&quot;</li>
           <li>Collez le code copié dans le champ URL</li>
           <li>Cliquez sur Enregistrer</li>
         </ol>
