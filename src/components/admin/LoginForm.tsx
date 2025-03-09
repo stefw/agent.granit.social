@@ -24,6 +24,11 @@ export default function LoginForm() {
       // Afficher les informations de débogage
       console.log('Tentative de connexion avec:', { email });
       
+      // Vérifier si Supabase est configuré
+      if (!supabase) {
+        throw new Error('Service d\'authentification temporairement indisponible. Veuillez réessayer plus tard.');
+      }
+      
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,

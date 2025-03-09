@@ -11,6 +11,12 @@ export default function LogoutButton() {
     
     try {
       console.log('Tentative de déconnexion...');
+      
+      // Vérifier si Supabase est configuré
+      if (!supabase) {
+        throw new Error('Service d\'authentification temporairement indisponible. Veuillez réessayer plus tard.');
+      }
+      
       const { error } = await supabase.auth.signOut();
       
       if (error) {

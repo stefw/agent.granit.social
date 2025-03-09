@@ -62,6 +62,11 @@ export default function PageForm({ initialData = {}, isEditing = false }: PageFo
         date: new Date().toISOString(),
       };
       
+      // Vérifier si Supabase est configuré
+      if (!supabase) {
+        throw new Error('Service de base de données temporairement indisponible. Veuillez réessayer plus tard.');
+      }
+      
       if (isEditing && initialData.id) {
         // Mettre à jour une page existante
         const { error } = await supabase

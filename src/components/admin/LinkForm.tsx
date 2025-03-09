@@ -87,6 +87,11 @@ export default function LinkForm({ initialData = {}, isEditing = false }: LinkFo
         date: new Date().toISOString(),
       };
       
+      // Vérifier si Supabase est configuré
+      if (!supabase) {
+        throw new Error('Service de base de données temporairement indisponible. Veuillez réessayer plus tard.');
+      }
+
       if (isEditing && initialData.id) {
         // Mettre à jour un lien existant
         const { error } = await supabase

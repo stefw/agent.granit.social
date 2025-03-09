@@ -46,6 +46,12 @@ export default function PostForm({ initialData = {}, isEditing = false }: PostFo
   // Récupérer les topics disponibles
   useEffect(() => {
     const fetchTopics = async () => {
+      // Vérifier si Supabase est configuré
+      if (!supabase) {
+        console.warn('Supabase n\'est pas configuré. Impossible de récupérer les topics.');
+        return;
+      }
+
       const { data, error } = await supabase
         .from('contents')
         .select('topic')
@@ -87,6 +93,11 @@ export default function PostForm({ initialData = {}, isEditing = false }: PostFo
         type: 'post',
         date: new Date().toISOString(),
       };
+      
+      // Vérifier si Supabase est configuré
+      if (!supabase) {
+        throw new Error('Service de base de données temporairement indisponible. Veuillez réessayer plus tard.');
+      }
       
       if (isEditing && initialData.id) {
         // Mettre à jour un post existant
