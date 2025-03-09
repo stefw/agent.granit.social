@@ -4,6 +4,9 @@ import Image from 'next/image'
 import { siteConfig, normalizeUrl } from '@/config/site'
 import ThemeToggle from '@/components/ThemeToggle'
 
+// Forcer la génération dynamique de la page à chaque requête
+export const dynamic = 'force-dynamic'
+
 export default async function Home() {
   const posts = await getAllPosts()
   

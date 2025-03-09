@@ -36,18 +36,18 @@ export default function BookmarkletPage() {
       </header>
       
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-8">
-        <h2 className="text-xl font-semibold mb-4">Comment utiliser la bookmarklet</h2>
+        <h2 className="text-xl font-semibold mb-4">Comment créer la bookmarklet</h2>
+        
+        <div className="my-4">
+          <BookmarkletButton 
+            bookmarkletCode={bookmarkletCode} 
+            siteName={siteConfig.name} 
+          />
+        </div>
+        
+        <h3 className="text-lg font-medium mt-8 mb-4">Comment l&apos;utiliser</h3>
         
         <ol className="list-decimal pl-6 space-y-4 mb-6">
-          <li>
-            <strong>Glissez-déposez</strong> le bouton ci-dessous dans votre barre de favoris :
-            <div className="my-4 text-center">
-              <BookmarkletButton 
-                bookmarkletCode={bookmarkletCode} 
-                siteName={siteConfig.name} 
-              />
-            </div>
-          </li>
           <li>
             <strong>Naviguez</strong> sur n&apos;importe quelle page web que vous souhaitez ajouter à votre site.
           </li>
