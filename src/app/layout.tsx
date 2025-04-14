@@ -5,6 +5,7 @@ import { ThemeProvider } from '@/components/ThemeProvider'
 import { siteConfig } from '@/config/site'
 import Footer from "@/components/Footer";
 import NewsletterCard from "@/components/NewsletterCard";
+import F4yb from "@/components/F4yb";
 
 export const metadata: Metadata = {
   title: siteConfig.name,
@@ -78,6 +79,11 @@ export default function RootLayout({
             </div>
             <NewsletterCard />
             <Footer />
+            
+            {/* F4yb fixé en bas à gauche, aligné sur la grille */}
+            <div className="fixed bottom-4 left-4 sm:bottom-8 sm:left-8 md:left-[calc(3em+4.166%)]">
+              <F4yb />
+            </div>
           </div>
         </ThemeProvider>
       </body>

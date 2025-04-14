@@ -75,7 +75,7 @@ export default async function LinksPage() {
               <div className="overflow-x-auto pb-4 sm:pb-0 -mx-4 px-4 sm:mx-0 sm:px-0">
                 <div className="flex items-center space-x-6 min-w-max">
                   <h2 className="text-[16px] sm:text-[18px] font-medium dark:text-white">
-                    Liens utiles
+                    A manger, et à boire
                   </h2>
                 </div>
               </div>
@@ -104,54 +104,47 @@ export default async function LinksPage() {
             {/* Liste des liens - Style similaire à la page d'accueil */}
             <div className="pt-8 space-y-2">
               {links && links.length > 0 ? (
-                <div className="space-y-8">
+                <div className="space-y-2">
                   {links.map((link, index) => (
-                    <article key={index} className="pb-6 border-b border-gray-100 dark:border-gray-800 last:border-0">
-                      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-2 space-y-1 sm:space-y-0">
-                        <span className="text-sm text-[#0E0D09]/70 dark:text-white">
-                          {new Date(link.date).toLocaleDateString('fr-FR', {
-                            day: '2-digit',
-                            month: 'short',
-                            year: '2-digit'
-                          })}
-                        </span>
+                    <article key={index} className="pb-2 border-b border-gray-100 dark:border-gray-800 last:border-0">
+
+                      <div className="flex justify-between items-start">
+                        <div className="flex-1 pr-2">
+                          <a 
+                            href={link.url} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="group"
+                          >
+                            <h2 className="text-[14px] sm:text-[16px] font-medium leading-[1.1] group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                              {link.title}
+                            </h2>
+                          </a>
+                        </div>
+                        <a 
+                          href={link.url} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="text-xs text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 flex items-center shrink-0 pt-1"
+                        >
+                         
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-2.5 w-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                          </svg>
+                        </a>
                       </div>
-                      <a 
-                        href={link.url} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="group"
-                      >
-                        <h2 className="text-[22px] sm:text-[26px] font-medium leading-[1.2] group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                          {link.title}
-                        </h2>
-                      </a>
                       
                       {link.excerpt && (
-                        <p className="text-gray-600 dark:text-gray-400 mt-2">
+                        <p className="text-gray-600 dark:text-gray-400 mt-0.5 text-xs">
                           {link.excerpt}
                         </p>
                       )}
                       
                       {!link.excerpt && link.content && (
-                        <p className="text-gray-600 dark:text-gray-400 mt-2">
+                        <p className="text-gray-600 dark:text-gray-400 mt-0.5 text-xs">
                           {link.content}
                         </p>
                       )}
-                      
-                      <div className="mt-3 flex items-center">
-                        <a 
-                          href={link.url} 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          className="text-sm text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 flex items-center"
-                        >
-                          <span>Visiter</span>
-                          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                          </svg>
-                        </a>
-                      </div>
                     </article>
                   ))}
                 </div>

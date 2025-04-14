@@ -1,6 +1,6 @@
 export const siteConfig = {
   name: "Agentic Or Not",
-  description: "Droguées à l'IA, dissoutes par TikTok et les daubes Hanounesques, des âmes audacieuses tentent, contre vents et marées, de préserver l'initiative et l'autonomie, comme si leurs vies en dépendaient — ce qui, en toute honnêteté, pourrait très bien être le cas. Nous sommes ici pour tenter de comprendre, et pouvoir organiser les luttes qui viennent.",
+  description: "Droguées à l'IA, dissoutes par TikTok et les daubes Hanounesques, des âmes audacieuses tentent, contre vents et marées, de préserver l'initiative et l'autonomie, comme si leurs vies en dépendaient — ce qui, en toute honnêteté, pourrait très bien être le cas. Nous sommes ici pour tenter de comprendre, et pouvoir organiser les luttes qui viennent. ",
   url: "https://agent.granit.social",
   ogImage: "https://agent.granit.social/images/hok.jpg",
   links: {
