@@ -4,7 +4,6 @@ import { GeistSans, GeistMono } from '@/app/fonts'
 import { ThemeProvider } from '@/components/ThemeProvider'
 import { siteConfig } from '@/config/site'
 import Footer from "@/components/Footer";
-import NewsletterCard from "@/components/NewsletterCard";
 import F4yb from "@/components/F4yb";
 
 export const metadata: Metadata = {
@@ -77,7 +76,6 @@ export default function RootLayout({
             <div className="flex-1">
               {children}
             </div>
-            <NewsletterCard />
             <Footer />
             
             {/* F4yb fixé en bas à gauche, aligné sur la grille */}

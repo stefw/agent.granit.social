@@ -1,4 +1,3 @@
-import NewsletterForm from './NewsletterForm'
 import Link from 'next/link'
 import { siteConfig } from '@/config/site'
 
@@ -12,10 +11,6 @@ export default function Footer() {
           
           {/* Partie droite (8 colonnes) - contenu du footer */}
           <div className="col-span-1 md:col-span-8 md:pl-8 py-8">
-            <div className="mb-16">
-              <NewsletterForm />
-            </div>
-
             <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
               <div>
                 <h3 className="text-xs uppercase text-gray-500 mb-4">À propos</h3>

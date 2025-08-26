@@ -7,10 +7,6 @@ export const siteConfig = {
     twitter: "https://twitter.com/agent_granit",
     github: "https://github.com/agent-granit",
   },
-  newsletter: {
-    title: "Newsletter",
-    description: "Abonnez-vous à notre newsletter"
-  },
   home: {
     postsPerTopic: 3, // Nombre de posts à afficher par topic sur la page d'accueil
   }
