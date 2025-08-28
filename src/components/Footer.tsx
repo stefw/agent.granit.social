@@ -17,12 +17,7 @@ export default function Footer() {
                 <ul className="space-y-2">
                   <li>
                     <Link href="/about" className="text-xs text-gray-600 dark:text-gray-400 hover:text-red-600 transition-colors">
-                        Qui sommes-nous ?
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/about" className="text-xs text-gray-600 dark:text-gray-400 hover:text-red-600 transition-colors">
-                        Github
+                        Qui suis-je ?
                     </Link>
                   </li>
                 </ul>
