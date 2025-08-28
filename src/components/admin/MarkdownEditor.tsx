@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import ImageUploader from './ImageUploader';
 import AudioRecorder from './AudioRecorder';
+import PDFUploader from './PDFUploader';
 
 // Import dynamique de l'éditeur Markdown pour éviter les erreurs SSR
 const MDEditor = dynamic(
@@ -48,6 +49,14 @@ export default function MarkdownEditor({ initialValue, onChange, topic }: Markdo
   const handleAudioRecorded = useCallback((url: string, fileName: string) => {
     const audioMarkdown = `<audio controls src="${url}"></audio>`;
     insertText(audioMarkdown);
+  }, [insertText]);
+  
+  // Fonction appelée lorsqu'un PDF est uploadé
+  const handlePDFUploaded = useCallback((url: string, fileName: string) => {
+    // Utiliser le nom du fichier comme texte du lien
+    const linkText = fileName.replace(/^\d+_[a-z0-9]+\./, ''); // Enlever le timestamp et hash
+    const pdfMarkdown = `[📄 ${linkText}](${url})`;
+    insertText(pdfMarkdown);
   }, [insertText]);
   
   // Fonction pour insérer des éléments de formatage Markdown
@@ -189,7 +198,7 @@ export default function MarkdownEditor({ initialValue, onChange, topic }: Markdo
         </TabsContent>
       </Tabs>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
         <div>
           <h3 className="text-lg font-medium mb-2">Ajouter une image</h3>
           <ImageUploader onImageUploaded={handleImageUploaded} topic={topic} />
@@ -197,6 +206,11 @@ export default function MarkdownEditor({ initialValue, onChange, topic }: Markdo
         
         <div>
           <AudioRecorder onAudioRecorded={handleAudioRecorded} topic={topic} />
+        </div>
+        
+        <div>
+          <h3 className="text-lg font-medium mb-2">Ajouter un PDF</h3>
+          <PDFUploader onPDFUploaded={handlePDFUploaded} topic={topic} />
         </div>
       </div>
     </div>

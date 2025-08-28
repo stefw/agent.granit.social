@@ -54,10 +54,11 @@ export async function POST(request: NextRequest) {
     const fileType = file.type;
     const isImage = fileType.startsWith('image/');
     const isAudio = fileType.startsWith('audio/');
+    const isPDF = fileType === 'application/pdf';
     
-    if (!isImage && !isAudio) {
+    if (!isImage && !isAudio && !isPDF) {
       return NextResponse.json(
-        { error: 'Type de fichier non pris en charge. Seuls les images et les fichiers audio sont acceptés.' },
+        { error: 'Type de fichier non pris en charge. Seuls les images, les fichiers audio et les PDFs sont acceptés.' },
         { status: 400 }
       );
     }
@@ -112,7 +113,7 @@ export async function POST(request: NextRequest) {
       url: publicUrl,
       fileName,
       path: storagePath,
-      type: isImage ? 'image' : 'audio',
+      type: isImage ? 'image' : isAudio ? 'audio' : 'pdf',
     });
   } catch (error: unknown) {
     console.error('Erreur lors de l\'upload du fichier:', error);
